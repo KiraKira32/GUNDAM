@@ -1,0 +1,72 @@
+@keyframes typing {
+  from { width: 0 }
+}
+@keyframes caret {
+  50% { border-color: transparent; }
+}
+
+.dynamic-text {
+  color: #dc0000;
+  text-shadow: 1px 1px 1px #000000;
+  font-size:clamp(16px,3vw,32px);
+  // font-size:clamp(24px,3vw,40px);
+  // font-size: 40px;
+  width: 12em;
+  border-right: .05em solid;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 1s steps(12),caret 1.5s steps(1) infinite;
+}
+
+.banner-block {
+  position: absolute;
+  .banner-title {
+    font-size:clamp(16px,3vw,28px);
+    // font-size: 32px;
+    position: absolute;
+    top: 260px;
+    left: 220px;
+  }
+  .banner-img img{
+    max-width: 100%;
+    height: auto;
+    background-color: #000000;
+
+  }
+}
+
+.main-block {
+  height: 100%;
+  background-color: #f1f1f1;
+}
+
+.showcase-img {
+  position: relative;
+  .logo-mercury {
+    top: 85%;
+    width: 35%;
+    left: 3%;
+    z-index: 7;
+    position: absolute;
+  }
+  .logp-mars {
+    left: 40%;
+    z-index: 6;
+    position: absolute;
+  }
+}
+
+
+.img-ornament {
+  width: 50%;
+}
+
+.img-element {
+  width: 8%;
+}
+
+.img-balloon {
+  width: 10%;
+}
+
+

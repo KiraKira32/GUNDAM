@@ -1,0 +1,19 @@
+// 1. 匯入 Bootstrap 取出functions
+@import "bootstrap/scss/functions";
+// 2. 匯入 自定義的變數
+@import "./variables";
+// 3. 載入 Bootstrap 自定義的方法
+@import "bootstrap/scss/bootstrap";
+
+// // 頁面的背景色
+body {
+  margin: 0 auto;
+  max-width: 1920px;
+  // background: #f1f1f1;
+  // background-color: rgb(0, 0, 0)
+}
+
+// @import "./Clear";
+
+@import "./Navbar";
+@import "./Home"
