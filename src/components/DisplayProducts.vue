@@ -1,10 +1,12 @@
+<!-- eslint-disable vue/no-deprecated-filter -->
 <template>
   <div class="products-list">
     <!-- 熱門商品 -->
     <img class="img-fluid mt-3" src="../assets/title/hot.png" alt="熱門商品" />
     <div class="mx-4 my-5">
-      <swiper
+      <!-- <swiper
         class="swiper-display"
+        :options="swiperOptions"
         :slides-per-view="4"
         @swiper="onSwiper"
         @slideChange="onSlideChange"
@@ -32,7 +34,41 @@
             </div>
           </div>
         </swiper-slide>
-      </swiper>
+      </swiper> -->
+
+      <swiper class="swiper" :options="swiperOptions" v-if="hotProducts.length">
+          <swiper-slide class="d-flex justify-content-center" v-for="item in hotProducts" :key="item.id">
+            <div class="gamescard card shadow-sm m-2" @click="getProducts(item.id)">
+              <!-- <div
+                style="height: 180px; background-repeat:no-repeat; background-position: center"
+                :style="{ backgroundImage: `url(${item.imageUrl})` }"
+              ></div> -->
+              <img :src="item.imageUrl" class="card-img-top card-img" alt="" />
+              <div class="card-body" style="width: 16rem">
+                <h5 class="card-title">
+                  {{ item.title }}
+                </h5>
+                <div class="d-flex justify-content-between align-items-baseline">
+                  <div class="h4 text-funOrange" v-if="item.price == item.origin_price">
+                    {{ item.origin_price | currency}} 元
+                  </div>
+                  <div class="h4 text-funDarkOrange" v-if="item.price !== item.origin_price">
+                    {{ item.price | currency}} 元
+                  </div>
+                  <del class="h6 text-funOrange" v-if="item.price !== item.origin_price"
+                    >{{ item.origin_price }} 元</del
+                  >
+                </div>
+              </div>
+              <div class="card-footer py-3">
+                <router-link :to="`/product/${item.id}`" class="btn btn-danger w-100"
+                  >馬上來看看</router-link
+                >
+              </div>
+            </div>
+          </swiper-slide>
+        </swiper>
+        
     </div>
 
     <!-- 歡慶開幕 -->
@@ -86,16 +122,22 @@
 </template>
 
 <style lang="scss">
-@media screen and (max-width: 480px) {
-  .card {
-    width: 18rem !important;
-  }
-  .swiper-slide {
-    // width: calc(100% / 4) !important;
-    width: 100% !important;
-    overflow: hidden;
-  }
-}
+
+// .swiper-container {
+//   --swiper-navigation-color: white;
+//   --swiper-navigation-size: 30px;
+// }
+
+// @media screen and (max-width: 480px) {
+//   .card {
+//     width: 18rem !important;
+//   }
+//   .swiper-slide {
+//     // width: calc(100% / 4) !important;
+//     width: 100% !important;
+//     overflow: hidden;
+//   }
+// }
 
 .card-shadow {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 8px;
@@ -122,11 +164,10 @@
 </style>
 
 <script>
-import SwiperCore, { Autoplay } from 'swiper/core'
+
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/swiper-bundle.css'
 
-SwiperCore.use([Autoplay])
 
 export default {
   components: {
@@ -135,8 +176,35 @@ export default {
   },
   data() {
     return {
+      swiperOptions: {
+        observer: true,
+        observeParents: true,
+        autoplay: {
+          disableOnInteraction: false,
+          delay: 3500,
+          loop:true,
+        },
+        breakpoints: {
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 5,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 10,
+          },
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+          480: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+        },
+      },
       hotProducts: [],
-      newProdicts: []
+      newProdicts: [],
     }
   },
   methods: {
@@ -147,7 +215,6 @@ export default {
         this.newProdicts = res.data.products.filter(
           (products) => products.category === '水星的魔女'
         )
-        console.log(res.data.products)
       })
     }
   },
