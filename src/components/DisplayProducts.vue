@@ -1,20 +1,25 @@
 <template>
   <div class="products-list">
     <!-- 熱門商品 -->
-    <img class="img-fluid mt-3" src="../assets/title/hot.png" alt="熱門商品">
+    <img class="img-fluid mt-3" src="../assets/title/hot.png" alt="熱門商品" />
     <div class="mx-4 my-5">
       <swiper
+        class="swiper-display"
         :slides-per-view="4"
         @swiper="onSwiper"
         @slideChange="onSlideChange"
         :loop="true"
         :autoplay="{
-          delay: 3500,
+          delay: 3000,
           disableOnInteraction: false
         }"
       >
-        <swiper-slide class="d-flex justify-content-center" v-for="item in hotProducts" :key="item.id">
-          <div class="card" style="width: 16rem">
+        <swiper-slide
+          class="d-flex justify-content-center"
+          v-for="item in hotProducts"
+          :key="item.id"
+        >
+          <div class="card card-shadow" style="width: 16rem">
             <img :src="item.imageUrl" class="card-img-top card-img" alt="" />
             <div class="card-body p-0">
               <h5 class="card-title p-2">{{ item.title }}</h5>
@@ -45,7 +50,7 @@
     </div>
 
     <!-- 最新商品 -->
-    <img class="img-fluid" src="../assets/title/new.png" alt="最新商品">
+    <img class="img-fluid" src="../assets/title/new.png" alt="最新商品" />
     <div class="mx-4 my-5">
       <swiper
         :slides-per-view="4"
@@ -57,8 +62,12 @@
           disableOnInteraction: false
         }"
       >
-        <swiper-slide class="d-flex justify-content-center mb-5" v-for="item in newProdicts" :key="item.id">
-          <div class="card" style="width: 16rem">
+        <swiper-slide
+          class="d-flex justify-content-center mb-5"
+          v-for="item in newProdicts"
+          :key="item.id"
+        >
+          <div class="card card-shadow" style="width: 16rem">
             <img :src="item.imageUrl" class="card-img-top card-img" alt="" />
             <div class="card-body p-0">
               <h5 class="card-title p-3">{{ item.title }}</h5>
@@ -77,6 +86,20 @@
 </template>
 
 <style lang="scss">
+@media screen and (max-width: 480px) {
+  .card {
+    width: 18rem !important;
+  }
+  .swiper-slide {
+    // width: calc(100% / 4) !important;
+    width: 100% !important;
+    overflow: hidden;
+  }
+}
+
+.card-shadow {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 8px;
+}
 .article-block {
   background: #000;
   .data-text {
@@ -85,20 +108,16 @@
     border-radius: 8px;
   }
 }
-
 .main-title {
   font-size: 28px;
   color: #bf0000;
 }
-
 .card-title {
   font-size: 16px;
 }
-
 .card-img {
   height: 200px;
   object-fit: cover;
-  /* object-position: center; */
 }
 </style>
 
