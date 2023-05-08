@@ -1,0 +1,1 @@
+.navbar-solid{background-color:#000}@media screen and (max-width: 480px){.navbar-logo{width:60%}.navbar>.container-fluid{flex-wrap:nowrap}}@media screen and (max-width: 768px){header{display:flex;justify-content:space-between}.navbar>.container-fluid{flex-wrap:nowrap}}@media screen and (max-width: 1024px){.navbar-block{background:black}}.footer-color{background:#BF0000}
