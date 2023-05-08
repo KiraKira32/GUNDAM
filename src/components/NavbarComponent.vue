@@ -5,7 +5,7 @@
         <div class="container-fluid custom-container px-3">
           <router-link to="/" class="d-flex me-md-auto text-decoration-none">
             <div >
-              <img class="navbar-title" src="../assets/img/LOGO.png" alt="">
+              <img class="navbar-logo" src="../assets/img/LOGO.png" alt="">
             </div>
           </router-link>
 
@@ -62,10 +62,27 @@ export default {
 
 <style lang="scss">
 
+@media screen and (max-width: 480px) {
+  .navbar-logo {
+    width: 60%;
+  }
+  .navbar > .container-fluid {
+    flex-wrap: nowrap;
+  }
+}
 @media screen and (max-width: 768px) {
   header {
     display: flex;
     justify-content: space-between;
+  }
+  .navbar > .container-fluid {
+    flex-wrap: nowrap;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .navbar-block{
+    background: black;
   }
 }
 </style>

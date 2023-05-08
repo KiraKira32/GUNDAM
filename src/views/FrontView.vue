@@ -1,26 +1,24 @@
 <template>
-  <div class="main-wrapper">
+<div class="wrapper">
     <Navbar></Navbar>
-    <RouterView></RouterView>
-    <FooterComponent></FooterComponent>
+    <div class="content">
+      <RouterView></RouterView>
+    </div>
+    <div class="footer">
+      <FooterComponent></FooterComponent>
+    </div>
   </div>
 </template>
 
 <style>
-
 </style>
 
-
 <script>
-
-import { RouterView } from 'vue-router'
-import Navbar from '@/components/NavbarComponent.vue';
+// import { RouterView } from 'vue-router'
+import Navbar from '@/components/NavbarComponent.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
 
 export default {
-  components: { RouterView, Navbar, FooterComponent }
+  components: { Navbar, FooterComponent }
 }
-
 </script>
-
-  

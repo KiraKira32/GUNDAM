@@ -1,16 +1,14 @@
+// Home title 文字動畫
 @keyframes typing {
   from { width: 0 }
 }
 @keyframes caret {
   50% { border-color: transparent; }
 }
-
 .dynamic-text {
   color: #dc0000;
   text-shadow: 1px 1px 1px #000000;
   font-size:clamp(16px,3vw,32px);
-  // font-size:clamp(24px,3vw,40px);
-  // font-size: 40px;
   width: 12em;
   border-right: .05em solid;
   overflow: hidden;
@@ -18,26 +16,21 @@
   animation: typing 1s steps(12),caret 1.5s steps(1) infinite;
 }
 
-.banner-block {
-  position: absolute;
-  .banner-title {
-    font-size:clamp(16px,3vw,28px);
-    // font-size: 32px;
-    position: absolute;
-    top: 260px;
-    left: 220px;
-  }
-  .banner-img img{
+
+.banner-img img{
     max-width: 100%;
     height: auto;
     background-color: #000000;
+}
 
-  }
+.container-block {
+  background-color: #fff;
 }
 
 .main-block {
-  height: 100%;
+  // height: 100%;
   background-color: #f1f1f1;
+  padding-bottom: 0px;
 }
 
 .showcase-img {
@@ -50,10 +43,15 @@
     position: absolute;
   }
   .logp-mars {
-    left: 40%;
+    width: 13%;
+    left: 48%;
     z-index: 6;
     position: absolute;
   }
+}
+
+.character{
+  width: 48%;
 }
 
 

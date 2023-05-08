@@ -62,10 +62,11 @@ export default {
     margin-top: 0px !important;
   }
   div.container .sub-title {
-  font-size: 12px;
+  font-size: 14px;
   padding-top: 1px !important;
   padding-bottom: 1px !important;
-  margin: 6px !important;
+  padding-left: 10px;
+  margin: 8px !important;
   }
   .banner-title {
     position: absolute;
@@ -77,6 +78,8 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 5% !important;
+    margin-bottom: 5%;
     .character {
       width: 85%;
     }
@@ -90,9 +93,9 @@ export default {
     width: 60%;
   }
   .showcase-img .logp-mars{
+    left: 65%;
     top: 55%;
-    left: 40%;
-    width: 55%;
+    width: 22%;
   }
   .decoration-block{
     padding: 0px !important;
@@ -104,7 +107,11 @@ export default {
 @media screen and (max-width: 768px) {
   .container {
     width: 100%;
-    padding: 1rem;
+    padding: 1rem; //要修改 05/07 
+  }
+  .img-title {
+    margin-top: 0px !important;
+    content: url("../assets/title/gundam_768.png")
   }
 }
 
@@ -112,7 +119,7 @@ export default {
 @media screen and (max-width: 1024px) {
   .container {
     max-width: 768px;
-    padding: 2rem;
+    padding: 2rem; //要修改 05/07
   }
 }
 
