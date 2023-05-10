@@ -11,8 +11,9 @@
 
 .navbar-block {
   z-index: 999;
-  background-color: rgba(0, 0, 0, 0.5); /* 將背景顏色設置為50%的透明度 */
-  opacity: 1; /* 設置元素自身不透明度為1 */
+  // background-color: rgba(0, 0, 0, 0.5); /* 將背景顏色設置為50%的透明度 */
+  // opacity: 1; /* 設置元素自身不透明度為1 */
+  background-color: black;
 }
 
 .nav-link {

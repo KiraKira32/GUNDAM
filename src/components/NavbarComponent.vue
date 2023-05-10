@@ -42,6 +42,11 @@
   </div>
 </template>
 
+<style>
+
+
+</style>
+
 <script>
 export default {
   data() {
@@ -55,8 +60,8 @@ export default {
     },
     closeNav() {
       this.isNavOpen = false
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -80,9 +85,4 @@ export default {
   }
 }
 
-@media screen and (max-width: 1024px) {
-  .navbar-block{
-    background: black;
-  }
-}
 </style>

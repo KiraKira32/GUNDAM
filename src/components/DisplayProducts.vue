@@ -1,8 +1,9 @@
 <template>
   <div class="products-list">
+    <Loading :active="isLoading" class="vld-overlay"></Loading>
     <!-- 熱門商品 -->
     <img class="img-fluid title-hot mt-3" src="../assets/title/hot.png" alt="熱門商品" />
-    <div class="mx-4 my-5">
+    <div class="mx-4 mt-5">
       <swiper
         class="swiper-display"
         :loop="true"
@@ -11,8 +12,12 @@
           disableOnInteraction: false
         }"
         :breakpoints="{
-          1024: {
+          1140: {
             slidesPerView: 4,
+            spaceBetween: 5
+          },
+          1024: {
+            slidesPerView: 3,
             spaceBetween: 5
           },
           768: {
@@ -30,7 +35,7 @@
         }"
       >
         <swiper-slide
-          class="d-flex justify-content-center"
+          class="d-flex justify-content-center mb-5"
           v-for="item in hotProducts"
           :key="item.id"
         >
@@ -182,6 +187,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       hotProducts: [],
       newProdicts: []
     }
@@ -189,21 +195,19 @@ export default {
   methods: {
     getProducts() {
       const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/products/all`
-      this.$http.get(url).then((res) => {
-        this.hotProducts = res.data.products.filter((products) => products.price < 500)
-        this.newProdicts = res.data.products.filter(
-          (products) => products.category === '水星的魔女'
-        )
-        console.log(res.data.products)
+      this.Loading = true;
+      this.$http
+        .get(url)
+        .then((res) => {
+          this.hotProducts = res.data.products.filter((products) => products.price < 500)
+          this.newProdicts = res.data.products.filter(
+            (products) => products.category === '水星的魔女'
+          )
+          this.Loading = false;
+        })
+      .catch(() => {
+        console.log('err');
       })
-    }
-  },
-  setup() {
-    const onSwiper = () => {}
-    const onSlideChange = () => {}
-    return {
-      onSwiper,
-      onSlideChange
     }
   },
   mounted() {

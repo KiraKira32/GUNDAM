@@ -9,8 +9,6 @@
 body {
   margin: 0 auto;
   max-width: 1920px;
-  // background: #f1f1f1;
-  // background-color: rgb(0, 0, 0)
 }
 
 // @import "./Clear";
@@ -18,4 +16,5 @@ body {
 @import "./Navbar";
 @import "./Home";
 @import "./Footer";
-@import "./Front"
+@import "./Loading";
+@import "./Products"

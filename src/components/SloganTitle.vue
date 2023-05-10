@@ -9,15 +9,35 @@
 </template>
 
 <style>
-
 .title-text-block {
   position: relative;
 }
 
-.banner-title  {
+.banner-title {
   position: absolute;
-    font-size:clamp(16px,3vw,28px);
-    top: 260px;
-    left: 220px;
+  font-size: clamp(16px, 3vw, 28px);
+  top: 260px;
+  left: 220px;
+}
+
+@media screen and (max-width: 1200px) {
+  .banner-title {
+    top: 180px;
+    left: 120px;
   }
+}
+
+@media screen and (max-width: 1024px) {
+  .banner-title {
+    top: 120px;
+    left: 100px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .banner-title {
+    top: 80px ;
+    left: 60px;
+  }
+}
 </style>

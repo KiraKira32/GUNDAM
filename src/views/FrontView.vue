@@ -14,7 +14,7 @@
 </style>
 
 <script>
-// import { RouterView } from 'vue-router'
+
 import Navbar from '@/components/NavbarComponent.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
 

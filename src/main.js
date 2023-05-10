@@ -10,6 +10,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+
 // 時間格式化
 import moment from 'moment'
 import { date, currency } from '../src/methods/fillters';
