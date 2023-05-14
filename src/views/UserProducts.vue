@@ -1,13 +1,14 @@
 <template>
   <div class="container">
     <Loading :active="isLoading" class="vld-overlay">
-      <div class="loadingio-spinner-rolling-y3x6rt20h2g">
-        <div class="ldio-dg3xh3l51l9">
+      <div class="loadingio-spinner-ripple-j9w2wm5soxm">
+        <div class="ldio-3c1sqxz2ek1">
+          <div></div>
           <div></div>
         </div>
       </div>
     </Loading>
-    <ProductsBannerVue></ProductsBannerVue>
+    <ProductsBanner></ProductsBanner>
     <!-- breadcrumb -->
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb pt-3">
@@ -38,21 +39,31 @@
           <div class="list-group text-center my-4">
             <button
               type="button"
-              class="list-group-item list-group-item-action active"
-              aria-current="true"
+              class="list-group-item list-group-item-action"
+              :class="{ active: category === '' }"
+              @click="setCategory('')"
             >
               全部的商品
             </button>
-            <button type="button" class="list-group-item list-group-item-action">水星的魔女</button>
-            <button type="button" class="list-group-item list-group-item-action">鐵血的孤兒</button>
-            <button type="button" class="list-group-item list-group-item-action">我還沒想到</button>
+            <template v-for="(item, index) in categories" :key="`${index}-${item}`">
+              <button
+                type="button"
+                class="list-group-item list-group-item-action"
+                :class="{ active: category === item }"
+                @click="setCategory(item)"
+              >
+                {{ item }}
+              </button>
+            </template>
           </div>
         </div>
+        <!-- 產品列表 -->
         <div class="col-9">
-          <!-- 產品列表 -->
-          <div v-if="filterProducts.length" class="row">
-            <div v-for="item in filterProducts" :key="item.id" class="col-md-6 col-lg-4 mb-4">
+          <div class="row">
+            <div v-for="item in products" :key="item.id" class="col-md-6 col-lg-4 mb-4">
               <div
+                v-cloak
+                @click="productLink(item.id)"
                 class="card"
                 style="width: 18rem background-repeat:no-repeat; background-position: center"
               >
@@ -88,65 +99,71 @@
 
 <script>
 import PaginationComponent from '@/components/PaginationComponent.vue'
-import ProductsBannerVue from '@/components/ProductsBanner.vue'
+import ProductsBanner from '@/components/ProductsBanner.vue'
 
 export default {
   components: {
-    // Swiper,
-    // SwiperSlide,
     PaginationComponent,
-    ProductsBannerVue
+    ProductsBanner
   },
   data() {
     return {
-      // modules: [Pagination, EffectFade],
-      isLoading: false,
       page: {},
-      product: {},
-      products: [], // 儲存資料
-      allproducts: [],
-      filterProducts: [],
-      productCategory: ''
+      isLoading: false,
+      products: [],
+      productsAll: [],
+      category: '',
+      categories: []
     }
   },
   methods: {
+    // 取得分頁資訊與產品分類
     getProducts(page = 1) {
+      this.isLoading = true
       const url = `${import.meta.env.VITE_API}/v2/api/${
         import.meta.env.VITE_PATH
-      }/products/?page=${page}`
-      this.isLoading = true
+      }/products?page=${page}&category=${this.category}`
       this.$http
         .get(url)
         .then((res) => {
           this.isLoading = false
           this.products = res.data.products
           this.page = res.data.pagination
-          this.filterProducts = this.products
-          this.productCategory = res.data.products.category
-          console.log(res)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    },
-    // 資料篩選
-    siftProducts() {
-      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/products/all`
-      this.$http.get(url).then((res) => {
-        this.allproducts = res.data.products
-        if (this.productCategory !== '') {
-          this.filterProducts = this.allproducts.filter((item) => {
-            item.category === this.productCategory
-          })
-        } else {
-          this.filterProducts = this.products
-        }
       })
+    },
+    // 取得所有商品資料
+    getProductsAll() {
+      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/products/all`
+      this.isLoading = true
+      this.$http.get(url).then((res) => {
+        this.productsAll = res.data.products
+        this.isLoading = false
+        this.createCategories(); // 觸發 category過濾
+      })
+    },
+    // 建立所有 category 的資料
+    createCategories() {
+      if (this.productsAll.length !== 0) {
+        const categoriesMap = this.productsAll.map((item) => item.category)
+        this.categories = [...new Set(categoriesMap)] // 去除重複的category
+      }
+    },
+    setCategory(category = '') {
+      this.category = category
+    },
+    // 連結指向單一產品
+    productLink(id) {
+      this.$router.push(`/product/${id}`)
+    }
+  },
+  watch: {
+    category() {
+      this.getProducts()
     }
   },
   mounted() {
     this.getProducts()
-    this.siftProducts()
+    this.getProductsAll();
   }
 }
 </script>

@@ -13,6 +13,11 @@
   margin-top: 100px;
 }
 
+[v-cloak] {
+  display: none;
+}
+
+
 .input-group-text {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;

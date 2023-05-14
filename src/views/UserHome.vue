@@ -1,7 +1,8 @@
 <template>
   <Loading :active="isLoading" class="vld-overlay">
-    <div class="loadingio-spinner-rolling-y3x6rt20h2g">
-      <div class="ldio-dg3xh3l51l9">
+    <div class="loadingio-spinner-ripple-j9w2wm5soxm">
+      <div class="ldio-3c1sqxz2ek1">
+        <div></div>
         <div></div>
       </div>
     </div>
@@ -9,7 +10,7 @@
   <SloganTitle></SloganTitle>
   <div class="banner-block">
     <div class="banner-img">
-      <img src="https://i.imgur.com/bKJg50Z.png" alt="" />
+      <img src="../assets/img/bKJg50Z.jpg" alt="" />
     </div>
     <!-- product title -->
     <main class="main-block">
@@ -25,8 +26,8 @@
         <div class="character-block d-flex justify-content-center showcase-img mt-5">
           <img class="logo-mercury" src="../assets/img/水星的魔女LOGO.png" alt="" />
           <img class="logp-mars" src="../assets/img/logo_orphans.png" alt="" />
-          <img class="img-mercury character" src="https://i.imgur.com/dkqPCm4.png" alt="水星" />
-          <img class="img-mars character" src="https://i.imgur.com/x45RfEt.png" alt="火星" />
+          <img class="img-mercury character" src="../assets/img/dkqPCm4.webp" alt="水星" />
+          <img class="img-mars character" src="../assets/img/x45RfEt.webp" alt="火星" />
         </div>
         <div class="decoration-block p-4 mt-5"></div>
         <DisplayProducts></DisplayProducts>
@@ -55,7 +56,7 @@ export default {
       if (this.isLoading === true) {
         setTimeout(() => {
           this.isLoading = false
-        }, 1500)
+        }, 1000)
       }
     },
     toggleNav() {
