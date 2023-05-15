@@ -1,1 +1,0 @@
-import{_ as t,o,c,a as e}from"./index-c8dd8e5d.js";const s={},n={class:"container"},a=e("div",{class:"text-center my-1"},[e("h1",null,"404 Not Found"),e("hr"),e("p",null,"不存在的頁面錯誤！")],-1),r=[a];function _(d,l){return o(),c("div",n,r)}const u=t(s,[["render",_]]);export{u as default};
