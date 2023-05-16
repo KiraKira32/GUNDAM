@@ -27,6 +27,9 @@
           <img class="logo-mercury" src="../assets/img/水星的魔女LOGO.png" alt="" />
           <img class="logp-mars" src="../assets/img/logo_orphans.png" alt="" />
           <img class="img-mercury character" src="../assets/img/dkqPCm4.webp" alt="水星" />
+          <!-- <router-link :to="{ path: '/products', query: { category: '水星的魔女'}}">
+            <img class="img-mercury character" src="../assets/img/dkqPCm4.webp" alt="水星" />
+          </router-link> -->
           <img class="img-mars character" src="../assets/img/x45RfEt.webp" alt="火星" />
         </div>
         <div class="decoration-block p-4 mt-5"></div>
@@ -48,7 +51,8 @@ export default {
   data() {
     return {
       isNavOpen: false,
-      isLoading: true
+      isLoading: true,
+      isHovering: false,
     }
   },
   methods: {
@@ -61,6 +65,9 @@ export default {
     },
     toggleNav() {
       this.isNavOpen = !this.isNavOpen
+    },
+    category() {
+      this.$router.push({path: '/products', query: { categories:''}})
     }
   },
   mounted() {

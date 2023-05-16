@@ -1,0 +1,34 @@
+.shopList{
+  // height: 50px;
+  border: 1px #c95555 solid;
+  // background-color: #BF0000;
+}
+
+.border-line {
+  color: #c95555;
+}
+
+.photo-container {
+  display: flex;
+}
+
+.photo-one, .photo-two {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin-right: 20px;
+}
+
+.hovered {
+  filter: brightness(0.5);
+}
+
+.photo-one.hovered::before, .photo-two.hovered::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+}
