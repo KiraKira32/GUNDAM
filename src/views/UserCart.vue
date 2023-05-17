@@ -19,9 +19,11 @@
         </ol>
       </nav>
     </div>
+
     <div class="container container-block shadow-sm p-0 mb-4">
+      
       <!-- 購物車 沒有產品 -->
-      <!-- <div class="cart-text text-center p-5">
+      <div v-if="cartData.carts?.length === 0" class="cart-text text-center p-5">
         <h3 class="mb-4">購物車</h3>
         <div class="cart-block py-5">
           <div class="fs-5 mb-4">您尚未選購任何商品，請先挑選您喜愛的商品。</div>
@@ -29,20 +31,21 @@
             <router-link :to="`/products`" class="btn btn-danger">前往選購</router-link>
           </div>
         </div>
-      </div> -->
+      </div>
 
       <!-- 購物車列表 -->
-
-      <div class="cart-text p-5 mx-5">
+      <div v-else class="cart-text p-5 mx-5">
         <h3 class="mb-4 text-center">購物車</h3>
         <div class="shopList p-2">
           <div class="text-end d-flex justify-content-end align-items-center">
             <IconTrash color="#DF0000" size="20" />
-            <a href="" class="text-decoration-none">
-              <span class="text-danger">清空購物車</span>
-            </a>
+            
+              <span class="text-danger" @click="deleteCartAll()">清空購物車</span>
+          
           </div>
           <hr class="border-line" />
+
+          
 
           <table class="table align-middle">
             <tbody>
@@ -56,7 +59,7 @@
                   />
                 </td>
                 <td>{{ item.product.title }}</td>
-                <td style="width: 80px;">
+                <td style="width: 80px">
                   <div class="input-group input-group-sm" style="width: 80px">
                     <div class="input-group">
                       <input
@@ -73,9 +76,13 @@
                   NT$ {{ $filters.currency(item.product.price) }}
                 </td>
                 <td class="align-middle text-right px-0">
-                  {{ $filters.currency(item.product.price * item.qty) }}
+                  NT${{ $filters.currency(item.product.price * item.qty) }}
                 </td>
-                <td class="text-right"><IconX color="#DF0000" /></td>
+                <td class="text-right" style="width: 24px">
+                  <div @click="deleteProduct(item)">
+                    <IconX color="#DF0000"/>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -133,7 +140,7 @@ export default {
   methods: {
     // 取得購物車資料
     getCart() {
-      // this.isLoading = true
+      this.isLoading = true
       const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart`
       this.$http
         .get(url)
@@ -142,8 +149,9 @@ export default {
           this.cartData = res.data.data
           console.log(this.cartData)
         })
-        .catch((err) => {
-          alert(err.data.message)
+        .catch(() => {
+          this.toastShow('購物車訊息', '取得購物車內容失敗', 2000)
+          this.isLoading = false
         })
     },
     // 調整購物車數量
@@ -153,22 +161,63 @@ export default {
         product_id: item.product.id,
         qty: item.qty
       }
-      this.$http.put(url, { data }).then(() => {
-        this.getCart()
-        this.toastShow('購物車訊息', '商品數量更新成功', 2000)
-      })
+      this.$http
+        .put(url, { data })
+        .then(() => {
+          this.getCart()
+          this.toastShow('購物車訊息', '商品數量更新成功', 2000)
+        })
+        .catch(() => {
+          this.toastShow('購物車訊息', '商品數量更新失敗', 2000)
+          this.isLoading = false
+        })
     },
-    toastShow (title, message, duration) {
-        this.title = title
-        this.message = message
-        this.toastMessage.show()      
-        setTimeout(() => {
-          this.toastMessage.hide();
-        }, duration);
-      },
+    toastShow(title, message, duration) {
+      this.title = title
+      this.message = message
+      this.toastMessage.show()
+      setTimeout(() => {
+        this.toastMessage.hide()
+      }, duration)
+    },
+    deleteProduct(item) {
+      this.isLoading = true
+      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart/${item.id}`
+      this.$http
+        .delete(url)
+        .then(() => {
+          this.getCart()
+          this.toastShow('購物車訊息', '刪除商品成功', 2000)
+          this.isLoading = false
+        })
+        .catch(() => {
+          this.toastShow('購物車訊息', '刪除商品失敗', 2000)
+          this.isLoading = false
+        })
+    },
+    deleteCartAll() {
+      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/carts`
+      this.isLoading = true
+      this.$http
+        .delete(url)
+        .then(() => {
+          this.getCart()
+          this.isLoading = false
+          this.toastShow('購物車訊息', '購物車清空成功', 2000)
+          console.log('123');
+        })
+        .catch(() => {
+          this.toastShow('購物車訊息', '購物車清空失敗', 2000)
+          this.isLoading = false
+        })
+    },
+    scrollTop() {
+      window.scrollTo(0, 0)
+    }
   },
   mounted() {
     this.getCart()
+    this.scrollTop()
     this.toastMessage = new Toast('#toastMessage')
   }
 }

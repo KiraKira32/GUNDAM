@@ -1,6 +1,5 @@
 <template>
   <div class="pagintion-container" @click="scrollTop">
-    <div v-if="categories == '' && search == ''">
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
         <!-- 上一頁 -->
@@ -21,11 +20,7 @@
           :class="{ active: page === pages.current_page }"
           :key="page + 'page'"
         >
-          <a 
-            class="page-link" 
-              href="#" 
-              @click.prevent="updatePage(page)"
-          >{{ page }}</a>
+          <a class="page-link" href="#" @click.prevent="updatePage(page)">{{ page }}</a>
         </li>
 
         <!-- 下一頁 -->
@@ -42,20 +37,19 @@
       </ul>
     </nav>
   </div>
-  </div>
 </template>
 
 <script>
 export default {
-
   props: ['pages', 'categories', 'search'],
   methods: {
     updatePage(page) {
       // @emitPages="更新頁面事件"
       this.$emit('emitPages', page)
+      this.getProducts()
     },
     scrollTop() {
-      window.scrollTo(0, 0);
+      window.scrollTo(0, 0)
     }
   }
 }

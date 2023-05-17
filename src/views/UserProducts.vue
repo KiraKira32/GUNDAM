@@ -92,7 +92,7 @@
                   <button
                     type="button"
                     class="btn btn-danger w-100"
-                    @click.prevent="addToCart(item.id)"
+                    @click.prevent="addToCart(products.id)"
                   >
                     加入購物車
                   </button>
@@ -139,9 +139,15 @@ export default {
     // 取得分頁資訊與產品分類
     getProducts(page = 1) {
       this.isLoading = true
-      const url = `${import.meta.env.VITE_API}/v2/api/${
+      let url = `${import.meta.env.VITE_API}/v2/api/${
         import.meta.env.VITE_PATH
       }/products?page=${page}&category=${this.category}`
+
+      // 如果有搜尋關鍵字，則在 URL 中添加相應的參數
+      // if (this.search) {
+      //   url += `&search=${this.search}`;
+      // }
+      
       this.$http.get(url).then((res) => {
         this.isLoading = false
         this.products = res.data.products
@@ -198,15 +204,34 @@ export default {
         })
     },
     filterSearch() {
-      // this.filterProducts = this.productsAll.filter((item) => item.title.match(this.search))
-      this.isLoading = true;
-
-  // 模擬搜尋的延遲時間
+      // this.isLoading = true
+      // // 模擬搜尋的延遲時間
+      // setTimeout(() => {
+      //   this.filterProducts = this.productsAll.filter((item) => item.title.match(this.search))
+      //   this.isLoading = false
+      // }, 1000)
+  this.isLoading = true;
   setTimeout(() => {
     this.filterProducts = this.productsAll.filter((item) => item.title.match(this.search));
     this.isLoading = false;
+    // 更新頁數
+    if (this.search && this.filterProducts.length < 10) {
+      this.page = {
+        total_pages: 1,
+        current_page: 1,
+        has_pre: false,
+        has_next: false
+      };
+    } else {
+      this.page = {
+        total_pages: 1,
+        current_page: 1,
+        has_pre: false,
+        has_next: false
+      };
+    }
   }, 1000);
-    },
+    }
   },
   watch: {
     category() {
