@@ -14,7 +14,7 @@
           </button>
 
           <div
-            class="collapse navbar-collapse justify-content-end me-3"
+            class="collapse navbar-collapse justify-content-end me-4"
             :class="{ show: isNavOpen }"
             id="navbarNav"
           >
@@ -25,13 +25,13 @@
                 >
               </li>
               <li class="nev-item">
-                <router-link to="/products" class="nav-link text-shadow" @click="closeNav"
-                  >商品</router-link
+                <router-link to="/faq" class="nav-link text-shadow" @click="closeNav"
+                  >常見問題</router-link
                 >
               </li>
               <li class="nev-item">
-                <router-link to="/faq" class="nav-link text-shadow" @click="closeNav"
-                  >常見問題</router-link
+                <router-link to="/products" class="nav-link text-shadow" @click="closeNav"
+                  >商品</router-link
                 >
               </li>
               <li class="nev-item">

@@ -89,7 +89,7 @@
         </div>
         <div class="total-block d-flex justify-content-end py-4">
           <div v-if="cartData.carts" class="text-secondary mx-4">
-            共 {{ cartData.carts.length }} 件商品
+            共 {{ getTotalQty() }} 件商品
           </div>
           <div class="products-num text-end text-secondary">商品總金額</div>
           <div class="products-price mx-4 text-danger">
@@ -154,6 +154,9 @@ export default {
           this.isLoading = false
         })
     },
+    getTotalQty() {
+    return this.cartData.carts.reduce((total, cart) => total + cart.qty, 0);
+  },
     // 調整購物車數量
     updataCart(item) {
       const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart/${item.id}`
@@ -224,14 +227,6 @@ export default {
 </script>
 
 <style>
-.main-cart {
-  margin-top: 74px;
-}
-.cart-block {
-  background: #f5f5f5;
-  border-radius: 5px;
-}
-
 @media (min-width: 1024px) {
   .about {
     min-height: 100vh;

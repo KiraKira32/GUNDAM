@@ -15,35 +15,18 @@
             <div class="col-sm-6 mb-3">
               <ul class="navbar-nav text-white">
                 <li>聯絡我們</li>
-                <li>TEL : 02-2277-6677</li>
-                <li>Mail : chiennnk32@gmail.com</li>
-                <li>地址 : 地址地址地址地址</li>
+                <li>TEL : 02-2793-1031</li>
+                <li>Mail : allstar@gmail.com</li>
+                <li>地址 : 台北市內湖區內湖路二段261號</li>
               </ul>
             </div>
           </div>
         </div>
         <div class="col-md-5 d-flex justify-content-sm-end pb-3">
           <div class="flex-column d-flex justify-content-between">
-            <ul class="nav text-white justify-content-sm-end">
-              <li>
-                <a href="#"><i class="fab fa-facebook-square text-white fa-2x mr-3"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fab fa-instagram text-white fa-2x mr-3"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fab fa-youtube text-white fa-2x mr-3"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fas fa-envelope text-white fa-2x"></i></a>
-              </li>
-            </ul>
-            <router-link to="/login" class="text-right d-lg-none pr-2"
-              ><i class="fas fa-user-cog text-white"></i
-            ></router-link>
-            <p class="text-white m-0">
+            <div class="text-white mt-auto">
               &copy;2023 Vue相關作品，無其他用途。
-            </p>
+            </div>
           </div>
         </div>
       </div>

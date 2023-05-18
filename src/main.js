@@ -10,6 +10,8 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+// Bootstrap 
+import 'bootstrap/dist/js/bootstrap.js';
 
 // 時間格式化
 import moment from 'moment'

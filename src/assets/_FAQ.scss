@@ -1,0 +1,24 @@
+.main-question {
+  margin-top: 74px;
+}
+
+
+.cordion-text-color{
+  color: #383838;
+}
+
+
+// .accordion-item:not(.collapsed) {
+//   background-color: #f4f4f4; /* 替換為你想要的背景顏色 */
+// }
+.accordion-item .accordion-button:not(.collapsed) {
+  background-color: #BF0000;
+  color: #FFF;
+}
+.accordion-button:not(.collapsed):after {
+  background-image: url(../assets/img/chevron-down.svg);
+  color: red;
+  transform: rotate(-180deg);
+}
+
+

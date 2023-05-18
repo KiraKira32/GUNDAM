@@ -5,10 +5,16 @@
 // 3. 載入 Bootstrap 自定義的方法
 @import "bootstrap/scss/bootstrap";
 
-// // 頁面的背景色
-body {
-  margin: 0 auto;
-  max-width: 1920px;
+
+// body {
+//   margin: 0 auto;
+//   max-width: 1920px;
+// }
+
+// 頁面背景色
+.main-block {
+  background-color: #f1f1f1;
+  padding-bottom: 0px;
 }
 
 // @import "./Clear";
@@ -19,3 +25,4 @@ body {
 @import "./Loading";
 @import "./Products";
 @import "./Cart";
+@import "./FAQ";
