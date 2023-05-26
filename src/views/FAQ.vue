@@ -194,11 +194,3 @@ export default {
   components: {}
 }
 </script>
-
-<style lang="scss">
-@media screen and (min-width: 1025px) {
-  .container {
-    max-width: 1200px;
-  }
-}
-</style>

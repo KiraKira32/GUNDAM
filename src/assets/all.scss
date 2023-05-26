@@ -6,23 +6,28 @@
 @import "bootstrap/scss/bootstrap";
 
 
-// body {
-//   margin: 0 auto;
-//   max-width: 1920px;
-// }
+@media screen and (min-width: 1025px) {
+  .container {
+    max-width: 1200px;
+  }
+}
 
 // 頁面背景色
 .main-block {
   background-color: #f1f1f1;
   padding-bottom: 0px;
 }
+// 區塊底色
+.container-block {
+  background-color: #fff;
+}
 
-// @import "./Clear";
 
 @import "./Navbar";
 @import "./Home";
 @import "./Footer";
 @import "./Loading";
-@import "./Products";
 @import "./Cart";
 @import "./FAQ";
+@import "./Products";
+@import "./ProductSwiper";

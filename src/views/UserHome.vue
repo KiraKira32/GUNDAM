@@ -154,10 +154,4 @@ export default {
   }
 }
 
-/* 螢幕寬度大於 1024px 時的樣式 */
-@media screen and (min-width: 1025px) {
-  .container {
-    max-width: 1200px;
-  }
-}
 </style>

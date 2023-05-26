@@ -12,6 +12,9 @@ import VueAxios from 'vue-axios'
 
 // Bootstrap 
 import 'bootstrap/dist/js/bootstrap.js';
+// Bootstrap  Icon
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 
 // 時間格式化
 import moment from 'moment'

@@ -147,7 +147,7 @@ export default {
         .then((res) => {
           this.isLoading = false
           this.cartData = res.data.data
-          console.log(this.cartData)
+          console.log(this.cartData.carts);
         })
         .catch(() => {
           this.toastShow('購物車訊息', '取得購物車內容失敗', 2000)
@@ -235,9 +235,4 @@ export default {
   }
 }
 
-@media screen and (min-width: 1025px) {
-  .container {
-    max-width: 1200px;
-  }
-}
 </style>
