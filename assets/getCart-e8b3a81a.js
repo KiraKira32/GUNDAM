@@ -1,0 +1,1 @@
+const s={data(){return{isLoading:!1,products:[],cartData:{carts:[]}}},methods:{getCart(){const t="https://vue3-course-api.hexschool.io/v2/api/asher_api/cart";this.$http.get(t).then(a=>{this.cartData=a.data.data}).catch(()=>{this.isLoading=!1})}},mounted(){this.getCart()}};export{s as g};
