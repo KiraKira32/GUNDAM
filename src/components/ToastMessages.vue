@@ -1,5 +1,5 @@
 <template>
-  <div class="toast-container position-fixed top-0 end-0 p-3">
+  <div class="toast-container custom-toast-container position-fixed end-0">
     <div
       id="toastMessage"
       ref="toastMessage"
@@ -25,3 +25,11 @@ export default {
   props: ['title', 'message']
 }
 </script>
+
+<style>
+.custom-toast-container {
+  position: absolute;
+  top: 66px !important;  /* 自定义上边距 */
+  right: 0px !important; /* 自定义右边距 */
+}
+</style>

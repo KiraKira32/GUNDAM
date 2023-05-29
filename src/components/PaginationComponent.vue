@@ -46,7 +46,6 @@ export default {
     updatePage(page) {
       // @emitPages="更新頁面事件"
       this.$emit('emitPages', page)
-      this.getProducts()
     },
     scrollTop() {
       window.scrollTo(0, 0)

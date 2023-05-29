@@ -21,7 +21,6 @@
     </div>
 
     <div class="container container-block shadow-sm p-0 mb-4">
-      
       <!-- 購物車 沒有產品 -->
       <div v-if="cartData.carts?.length === 0" class="cart-text text-center p-5">
         <h3 class="mb-4">購物車</h3>
@@ -37,15 +36,12 @@
       <div v-else class="cart-text p-5 mx-5">
         <h3 class="mb-4 text-center">購物車</h3>
         <div class="shopList p-2">
-          <div class="text-end d-flex justify-content-end align-items-center">
+          <div class="text-end d-flex justify-content-end align-items-center mx-2 pt-1">
+            <a href="#"></a>
             <IconTrash color="#DF0000" size="20" />
-            
-              <span class="text-danger" @click="deleteCartAll()">清空購物車</span>
-          
+            <span class="text-danger" @click="deleteCartAll()" style="cursor: pointer;">清空購物車</span>
           </div>
           <hr class="border-line" />
-
-          
 
           <table class="table align-middle">
             <tbody>
@@ -56,6 +52,7 @@
                     :src="item.product.imageUrl"
                     alt="item.product.imageUrl"
                     @click="$router.push(`/product/${item.product_id}`)"
+                    style="cursor: pointer;"
                   />
                 </td>
                 <td>{{ item.product.title }}</td>
@@ -80,7 +77,7 @@
                 </td>
                 <td class="text-right" style="width: 24px">
                   <div @click="deleteProduct(item)">
-                    <IconX color="#DF0000"/>
+                    <IconX color="#DF0000" style="cursor: pointer;"/>
                   </div>
                 </td>
               </tr>
@@ -88,9 +85,7 @@
           </table>
         </div>
         <div class="total-block d-flex justify-content-end py-4">
-          <div v-if="cartData.carts" class="text-secondary mx-4">
-            共 {{ getTotalQty() }} 件商品
-          </div>
+          <div v-if="cartData.carts" class="text-secondary mx-4">共 {{ getTotalQty() }} 件商品</div>
           <div class="products-num text-end text-secondary">商品總金額</div>
           <div class="products-price mx-4 text-danger">
             NT${{ $filters.currency(cartData.total) }}
@@ -113,13 +108,17 @@
 </template>
 
 <script>
+import getCart from '@/mixins/getCart'
+
 import { IconTrash } from '@tabler/icons-vue'
 import { IconX } from '@tabler/icons-vue'
 import { Toast } from 'bootstrap'
+// import Swal from 'sweetalert2'
 
 import ToastMessages from '@/components/ToastMessages.vue'
 
 export default {
+  mixins: [getCart],
   components: {
     IconTrash,
     IconX,
@@ -138,25 +137,9 @@ export default {
     }
   },
   methods: {
-    // 取得購物車資料
-    getCart() {
-      this.isLoading = true
-      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart`
-      this.$http
-        .get(url)
-        .then((res) => {
-          this.isLoading = false
-          this.cartData = res.data.data
-          console.log(this.cartData.carts);
-        })
-        .catch(() => {
-          this.toastShow('購物車訊息', '取得購物車內容失敗', 2000)
-          this.isLoading = false
-        })
-    },
     getTotalQty() {
-    return this.cartData.carts.reduce((total, cart) => total + cart.qty, 0);
-  },
+      return this.cartData.carts.reduce((total, cart) => total + cart.qty, 0)
+    },
     // 調整購物車數量
     updataCart(item) {
       const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart/${item.id}`
@@ -207,7 +190,6 @@ export default {
           this.getCart()
           this.isLoading = false
           this.toastShow('購物車訊息', '購物車清空成功', 2000)
-          console.log('123');
         })
         .catch(() => {
           this.toastShow('購物車訊息', '購物車清空失敗', 2000)
@@ -234,5 +216,4 @@ export default {
     align-items: center;
   }
 }
-
 </style>

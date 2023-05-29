@@ -183,14 +183,11 @@
 </template>
 
 <script>
-// import { IconChevronUp } from '@tabler/icons-vue';
-
 export default {
   data() {
     return {
       isLoading: false
     }
   },
-  components: {}
 }
 </script>

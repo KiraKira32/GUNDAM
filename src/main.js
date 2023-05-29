@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 

@@ -76,18 +76,24 @@
                   :src="products.imageUrl"
                   alt=""
                   @click="productLink(products.id)"
+                  style="cursor: pointer"
                 />
                 <div class="card-body">
                   <span class="badge bg-secondary mb-3" style="font-size: 14px">{{
                     products.category
                   }}</span>
                   <h5 class="card-title" style="font-size: 16px">{{ products.title }}</h5>
-                  <div v-if="products.price === products.origin_price" class="text-danger h5 mb-3">
-                    NT${{ products.price }}
-                  </div>
-                  <div v-else class="mb-3">
-                    <del class="h6"> NT${{ products.origin_price }}</del>
-                    <span class="h5 text-danger"> NT${{ products.price }}</span>
+                  <div class="text-end mx-3">
+                    <div
+                      v-if="products.price === products.origin_price"
+                      class="text-danger h5 mb-3"
+                    >
+                      NT${{ products.price }}
+                    </div>
+                    <div v-else class="mb-3">
+                      <del class="h6"> NT${{ products.origin_price }}</del>
+                      <span class="h5 text-danger"> NT${{ products.price }}</span>
+                    </div>
                   </div>
                   <button
                     type="button"
@@ -142,12 +148,6 @@ export default {
       let url = `${import.meta.env.VITE_API}/v2/api/${
         import.meta.env.VITE_PATH
       }/products?page=${page}&category=${this.category}`
-
-      // 如果有搜尋關鍵字，則在 URL 中添加相應的參數
-      // if (this.search) {
-      //   url += `&search=${this.search}`;
-      // }
-      
       this.$http.get(url).then((res) => {
         this.isLoading = false
         this.products = res.data.products
@@ -176,6 +176,7 @@ export default {
     },
     setCategory(category = '') {
       this.category = category
+      this.getProducts()
     },
     // 連結指向單一產品
     productLink(id) {
@@ -204,33 +205,27 @@ export default {
         })
     },
     filterSearch() {
-      // this.isLoading = true
-      // // 模擬搜尋的延遲時間
-      // setTimeout(() => {
-      //   this.filterProducts = this.productsAll.filter((item) => item.title.match(this.search))
-      //   this.isLoading = false
-      // }, 1000)
-  this.isLoading = true;
-  setTimeout(() => {
-    this.filterProducts = this.productsAll.filter((item) => item.title.match(this.search));
-    this.isLoading = false;
-    // 更新頁數
-    if (this.search && this.filterProducts.length < 10) {
-      this.page = {
-        total_pages: 1,
-        current_page: 1,
-        has_pre: false,
-        has_next: false
-      };
-    } else {
-      this.page = {
-        total_pages: 1,
-        current_page: 1,
-        has_pre: false,
-        has_next: false
-      };
-    }
-  }, 1000);
+      this.isLoading = true
+      setTimeout(() => {
+        this.filterProducts = this.productsAll.filter((item) => item.title.match(this.search))
+        this.isLoading = false
+        // 更新頁數
+        if (this.search && this.filterProducts.length < 10) {
+          this.page = {
+            total_pages: 1,
+            current_page: 1,
+            has_pre: false,
+            has_next: false
+          }
+        } else {
+          this.page = {
+            total_pages: 1,
+            current_page: 1,
+            has_pre: false,
+            has_next: false
+          }
+        }
+      }, 1000)
     }
   },
   watch: {
@@ -242,9 +237,14 @@ export default {
     }
   },
   mounted() {
+    // 導向產品類別
+    const selectedCategory = this.$route.query.category
+    if (selectedCategory) {
+      this.category = selectedCategory
+    }
+
     this.getProducts()
     this.getProductsAll()
   }
 }
 </script>
-

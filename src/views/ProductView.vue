@@ -27,11 +27,11 @@
       </nav>
     </div>
 
-    <div class="container container-block shape-border shadow-sm">
+    <div class="container container-block shape-border shadow-sm p-0">
       <div class="modal-content">
         <div class="modal-body">
-          <div class="row">
-            <div class="col-md-6 p-4">
+          <div class="row p-5">
+            <div class="col-md-6">
               <swiper
                 :style="{
                   '--swiper-navigation-color': '#fff',
@@ -42,17 +42,15 @@
                 :thumbs="{ swiper: thumbsSwiper }"
                 :modules="modules"
                 class="mySwiper2 swiper-style2 mb-3"
-                style="width: 550px; height: 550px"
+                style="width: 550px; height: 450px"
               >
                 <swiper-slide>
                   <img class="img-product" :src="product.imageUrl" />
                 </swiper-slide>
-
                 <swiper-slide v-for="imageUrl in product.imagesUrl" :key="imageUrl">
                   <img class="img-product" :src="imageUrl" />
                 </swiper-slide>
               </swiper>
-
               <swiper
                 @swiper="setThumbsSwiper"
                 :spaceBetween="10"
@@ -72,13 +70,19 @@
                 </swiper-slide>
               </swiper>
             </div>
-            <div class="col-md-6 p-0 pt-4 pe-5">
-              <div class="">
-                <div class="text-secondary pb-2">商品編號: {{ product.id }}</div>
+            <!-- 商品資訊 -->
+            <div class="col-md-6">
+              <div class="ps-4">
                 <h4>{{ product.title }}</h4>
+                <div class="text-secondary pb-2">商品編號: {{ product.id }}</div>
                 <div>
                   <div class="product-price my-4 d-flex justify-content-end">
-                    <div v-if="product.price === product.origin_price">{{ product.price }} 元</div>
+                    <div
+                      v-if="product.price === product.origin_price"
+                      class="text-danger mx-2 fw-bold fs-3"
+                    >
+                      NT${{ product.price }} 元
+                    </div>
                     <div v-else class="d-flex align-items-center">
                       <div class="text-danger me-2 fw-bold fs-3">NT$ {{ product.price }}</div>
                       <span
@@ -92,38 +96,55 @@
                   <div class="d-flex align-items-center py-3">
                     <div class="input-group w-50 me-4">
                       <div class="input-group-prepend">
-                        <button class="btn btn-danger custom-left-rounded" type="button">
+                        <button
+                          class="btn btn-danger custom-left-rounded"
+                          type="button"
+                          @click="qty > 1 ? qty-- : null"
+                          :disabled="qty === 1"
+                        >
                           <i class="bi bi-dash"></i>
                         </button>
                       </div>
-                      <span class="form-control text-center">1</span>
+                      <span class="form-control text-center">{{ qty }}</span>
                       <div class="input-group-append">
-                        <button class="btn btn-danger custom-right-rounded" type="button">
+                        <button
+                          class="btn btn-danger custom-right-rounded"
+                          type="button"
+                          @click="qty++"
+                        >
                           <i class="bi bi-plus"></i>
                         </button>
                       </div>
                     </div>
-                    <button type="button" class="btn btn-danger w-50 ms-4">
+                    <button
+                      type="button"
+                      class="btn btn-danger w-50 ms-4"
+                      @click.prevent="addToCart(product.id, qty)"
+                    >
                       <i class="bi bi-cart4"></i>
                       加入購物車
                     </button>
                   </div>
-                  <hr>
+                  <div class="py-2">客約商品：請於結帳時在備註欄位填寫可收貨日期</div>
+                  <hr />
                   <div class="product-tote">
                     <div class="product freight">
-                      <div style="font-size: 18px;">
-                          <i class="bi bi-box-seam-fill"></i>
-                          <span class="ms-1">運送&付款</span>
+                      <div style="font-size: 18px">
+                        <i class="bi bi-box-seam-fill"></i>
+                        <span class="ms-1">配送及相關說明</span>
+                      </div>
+                      <div class="py-2">
+                        線上購物的消費者，都可以依照消費者保護法的規定，享有商品貨到次日起七天猶豫期的權益。但猶豫期並非試用期，請留意，您所退回的商品必須回復原狀。
                       </div>
                     </div>
                     <div class="freight-content mt-3">
                       <div class="p-3">
                         <div class="mb-3">
                           <div class="fw-bold">運送方式：</div>
-                          <div>7-11取貨、全家取貨、實體門市取貨、一般宅配貨到付款</div>
+                          <div>宅配、超商取貨、一般宅配、貨到付款</div>
                         </div>
                         <div class="fw-bold">付款方式：</div>
-                        <div>宅配代收、7-11取貨付款、全家取貨、付款信用卡、分期付款</div>
+                        <div>宅配代收、7-11取貨、付款全家取貨付款、信用卡付款</div>
                       </div>
                     </div>
                   </div>
@@ -134,7 +155,71 @@
         </div>
       </div>
     </div>
+    <div class="container container-block p-0">
+      <div class="product-show">
+        <div class="fs-4 my-4 pt-4 fw-bold mx-4">你可能有興趣</div>
+        <div class="mx-4">
+          <swiper
+            class="swiper-display"
+            :loop="true"
+            :breakpoints="{
+              1140: {
+                slidesPerView: 4,
+                spaceBetween: 5
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 5
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 10
+              },
+              600: {
+                slidesPerView: 2,
+                spaceBetween: 10
+              },
+              430: {
+                slidesPerView: 1,
+                spaceBetween: 20
+              }
+            }"
+          >
+            <swiper-slide
+              class="d-flex justify-content-center mb-5"
+              v-for="item in filteredProducts"
+              :key="item.id"
+              @click="selectedProductId = item.id"
+            >
+              <div class="card card-shadow" style="width: 16rem">
+                <router-link :to="`/product/${item.id}`">
+                  <img :src="item.imageUrl" class="card-img-top card-img" alt="" />
+                </router-link>
+                <div class="card-body p-0">
+                  <h5 class="card-title p-2">{{ item.title }}</h5>
+                  <div class="text-end mx-3">
+                    <div v-if="item.price === item.origin_price" class="text-danger h5 mb-3">
+                      NT${{ item.price }}
+                    </div>
+                    <div v-else class="mb-3">
+                      <del class="h6"> NT${{ item.origin_price }}</del>
+                      <span class="h5 text-danger"> NT${{ item.price }}</span>
+                    </div>
+                  </div>
+                  <div class="card-footer py-3">
+                    <router-link :to="`/product/${item.id}`" class="btn btn-danger w-100"
+                      >馬上來看看</router-link
+                    >
+                  </div>
+                </div>
+              </div>
+            </swiper-slide>
+          </swiper>
+        </div>
+      </div>
+    </div>
   </main>
+  <router-view></router-view>
 </template>
 
 <script>
@@ -148,10 +233,15 @@ import 'swiper/css/free-mode'
 import 'swiper/css/navigation'
 import 'swiper/css/thumbs'
 
+import Swal from 'sweetalert2'
+
 // import required modules
 import { FreeMode, Navigation, Thumbs } from 'swiper'
 
+import getCart from '@/mixins/getCart'
+
 export default {
+  mixins: [getCart],
   components: {
     Swiper,
     SwiperSlide
@@ -159,14 +249,25 @@ export default {
   data() {
     return {
       product: {},
+      products: [],
       isLoading: false,
+      isLoadingItem: '',
       imagesUrl: [],
       thumbsSwiper: null,
-      modules: [FreeMode, Navigation, Thumbs]
+      modules: [FreeMode, Navigation, Thumbs],
+      // selectedProduct:{},
+      selectedProductId: null,
+      qty: 1
+    }
+  },
+  computed: {
+    // 過濾列表，只顯示未選擇的商品
+    filteredProducts() {
+      return this.products.filter((item) => item.id !== this.selectedProductId)
     }
   },
   methods: {
-    getProduct() {
+    getProductId() {
       // 取出單一產品頁面的 ID
       this.isLoading = true
       const { id } = this.$route.params
@@ -174,20 +275,69 @@ export default {
       this.$http
         .get(url)
         .then((res) => {
+          this.scrollTop()
           this.product = res.data.product
+          this.isLoading = false
+          // this.selectedProduct = this.product
+          console.log(url);
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    },
+    getProductsAll() {
+      this.isLoading = true
+      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/products/all`
+      this.$http
+        .get(url)
+        .then((res) => {
+          this.products = res.data.products.filter((products) => products.price < 500)
+          // this.products = res.data.products.filter((products) => products.category === '水星的魔女')
           this.isLoading = false
         })
         .catch((err) => {
-          console.log(err)
+          alert(err)
         })
     },
     setThumbsSwiper(swiper) {
       this.thumbsSwiper = swiper
+    },
+    scrollTop() {
+      window.scrollTo(0, 0)
+    },
+    addToCart(product_id, qty = 1) {
+      const data = {
+        product_id,
+        qty
+      }
+      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart`
+      this.$http
+        .post(url, { data })
+        .then((res) => {
+          this.getCart()
+          this.qty = 1
+          Swal.fire({
+            icon: 'success',
+            title: '加入購物車成功！',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          console.log(res);
+        })
+        .catch((err) => {
+          alert(err)
+        })
     }
   },
+
   mounted() {
-    this.getProduct()
+    this.getProductId()
+    this.getProductsAll()
     this.imagesUrl.unshift(this.product.imageUrl)
+
+  //   if (this.product.imageUrl) {
+  //   this.imagesUrl.unshift(this.product.imageUrl) 
+  // }
   }
 }
 </script>

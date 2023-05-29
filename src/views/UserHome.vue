@@ -26,11 +26,22 @@
         <div class="character-block d-flex justify-content-center showcase-img mt-5">
           <img class="logo-mercury" src="../assets/img/水星的魔女LOGO.png" alt="" />
           <img class="logp-mars" src="../assets/img/logo_orphans.png" alt="" />
-          <img class="img-mercury character" src="../assets/img/dkqPCm4.webp" alt="水星" />
-          <!-- <router-link :to="{ path: '/products', query: { category: '水星的魔女'}}">
-            <img class="img-mercury character" src="../assets/img/dkqPCm4.webp" alt="水星" />
-          </router-link> -->
-          <img class="img-mars character" src="../assets/img/x45RfEt.webp" alt="火星" />
+          <img
+            class="img-mercury character"
+            src="../assets/img/dkqPCm4.webp"
+            alt="水星"
+            @click="redirectToCategory"
+            data-category="水星的魔女"
+            style="cursor: pointer"
+          />
+          <img
+            class="img-mars character"
+            src="../assets/img/x45RfEt.webp"
+            alt="火星"
+            @click="redirectToCategory"
+            data-category="鐵血的孤兒"
+            style="cursor: pointer"
+          />
         </div>
         <div class="decoration-block p-4 mt-5"></div>
         <DisplayProducts></DisplayProducts>
@@ -52,7 +63,7 @@ export default {
     return {
       isNavOpen: false,
       isLoading: true,
-      isHovering: false,
+      isHovering: false
     }
   },
   methods: {
@@ -66,12 +77,16 @@ export default {
     toggleNav() {
       this.isNavOpen = !this.isNavOpen
     },
-    category() {
-      this.$router.push({path: '/products', query: { categories:''}})
+    category(item) {
+      this.$router.push({ path: '/products', query: { category: item } })
+    },
+    // 導向產品分類類別
+    redirectToCategory(event) {
+      const selectedCategory = event.target.dataset.category
+      this.$router.push({ path: '/products', query: { category: selectedCategory } })
     }
   },
   mounted() {
-    // this.getProducts()
     this.Loading()
   }
 }
@@ -153,5 +168,4 @@ export default {
     padding: 2rem; //要修改 05/07
   }
 }
-
 </style>

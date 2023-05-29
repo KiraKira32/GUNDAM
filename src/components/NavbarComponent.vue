@@ -42,11 +42,11 @@
                 >
                   購物車
                   <i class="fas fa-shopping-cart"></i>
+                  <!-- v-if="cartData.carts.length > 0" -->
                   <span
                     class="position-absolute top-1 start-100 translate-middle badge badge-num rounded-pill bg-danger"
                   >
-                    99+
-                    <span class="visually-hidden"></span>
+                    <!-- {{ totalCartItems }} -->
                   </span>
                 </router-link>
               </li>
@@ -58,13 +58,15 @@
   </div>
 </template>
 
-<style></style>
-
 <script>
+import getCart from '@/mixins/getCart'
+// import emitter from '@/methods/emitter'
+
 export default {
+  mixins: [getCart],
   data() {
     return {
-      isNavOpen: false
+      isNavOpen: false,
     }
   },
   methods: {
@@ -73,8 +75,23 @@ export default {
     },
     closeNav() {
       this.isNavOpen = false
-    }
-  }
+    },
+  },
+  computed: {
+    // 購物車的數量
+    // totalCartItems() {
+    //   let total = 0
+    //   if (this.cartData && this.cartData.carts) {
+    //     this.cartData.carts.forEach((item) => {
+    //       total += item.qty
+    //     })
+    //   }
+    //   return total
+    // },
+  },
+  mounted() {
+    this.getCart()
+  },
 }
 </script>
 
@@ -91,8 +108,6 @@ export default {
     left: 90px !important;
   }
 }
-
-
 
 @media screen and (max-width: 1024px) {
   .badge-num {

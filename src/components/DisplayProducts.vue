@@ -40,10 +40,20 @@
           :key="item.id"
         >
           <div class="card card-shadow" style="width: 16rem">
-            <img :src="item.imageUrl" class="card-img-top card-img" alt="" />
+            <router-link :to="`/product/${item.id}`">
+              <img :src="item.imageUrl" class="card-img-top card-img" alt="" />
+            </router-link>
             <div class="card-body p-0">
               <h5 class="card-title p-2">{{ item.title }}</h5>
-              <p class="card-text text-end me-3 fw-bold">NT$ {{ item.price }}</p>
+              <div class="text-end mx-3">
+                <div v-if="item.price === item.origin_price" class="text-danger h5 mb-3">
+                  NT${{ item.price }}
+                </div>
+                <div v-else class="mb-3">
+                  <del class="h6"> NT${{ item.origin_price }}</del>
+                  <span class="h5 text-danger"> NT${{ item.price }}</span>
+                </div>
+              </div>
               <div class="card-footer py-3">
                 <router-link :to="`/product/${item.id}`" class="btn btn-danger w-100"
                   >馬上來看看</router-link
@@ -104,10 +114,20 @@
           :key="item.id"
         >
           <div class="card card-shadow" style="width: 16rem">
-            <img :src="item.imageUrl" class="card-img-top card-img" alt="" />
+            <router-link :to="`/product/${item.id}`">
+              <img :src="item.imageUrl" class="card-img-top card-img" alt="" />
+            </router-link>
             <div class="card-body p-0">
               <h5 class="card-title p-3">{{ item.title }}</h5>
-              <p class="card-text text-end me-3 fw-bold">NT$ {{ item.price }}</p>
+              <div class="text-end mx-3">
+                <div v-if="item.price === item.origin_price" class="text-danger h5 mb-3">
+                  NT${{ item.price }}
+                </div>
+                <div v-else class="mb-3">
+                  <del class="h6"> NT${{ item.origin_price }}</del>
+                  <span class="h5 text-danger"> NT${{ item.price }}</span>
+                </div>
+              </div>
               <div class="card-footer py-3">
                 <router-link :to="`/product/${item.id}`" class="btn btn-danger w-100"
                   >馬上來看看</router-link
@@ -140,10 +160,7 @@
 .card-title {
   font-size: 16px;
 }
-.card-img {
-  height: 200px;
-  object-fit: cover;
-}
+
 
 @media screen and (max-width: 480px) {
   .card {
@@ -152,11 +169,11 @@
   .card-shadow {
     box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px;
   }
-  .img-balloon{
+  .img-balloon {
     width: 20%;
     margin: 10px !important;
   }
-  .text-danger{
+  .text-danger {
     margin-top: 20px;
   }
 }
@@ -195,7 +212,7 @@ export default {
   methods: {
     getProducts() {
       const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/products/all`
-      this.Loading = true;
+      this.Loading = true
       this.$http
         .get(url)
         .then((res) => {
@@ -203,11 +220,11 @@ export default {
           this.newProdicts = res.data.products.filter(
             (products) => products.category === '水星的魔女'
           )
-          this.Loading = false;
+          this.Loading = false
         })
-      .catch(() => {
-        console.log('err');
-      })
+        .catch(() => {
+          console.log('err')
+        })
     }
   },
   mounted() {
