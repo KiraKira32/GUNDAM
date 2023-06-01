@@ -223,22 +223,25 @@
 </template>
 
 <script>
-// Import Swiper Vue.js components
+
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
-// Import Swiper styles
 import 'swiper/css'
 
 import 'swiper/css/free-mode'
 import 'swiper/css/navigation'
 import 'swiper/css/thumbs'
 
+// eslint-disable-next-line no-unused-vars
 import Swal from 'sweetalert2'
 
 // import required modules
 import { FreeMode, Navigation, Thumbs } from 'swiper'
 
 import getCart from '@/mixins/getCart'
+
+import { mapActions } from 'pinia'
+import cartStore from '../stores/cart'
 
 export default {
   mixins: [getCart],
@@ -302,28 +305,7 @@ export default {
     scrollTop() {
       window.scrollTo(0, 0)
     },
-    addToCart(product_id, qty = 1) {
-      const data = {
-        product_id,
-        qty
-      }
-      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart`
-      this.$http
-        .post(url, { data })
-        .then(() => {
-          this.getCart()
-          this.qty = 1
-          Swal.fire({
-            icon: 'success',
-            title: '加入購物車成功！',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        })
-        .catch((err) => {
-          alert(err)
-        })
-    }
+    ...mapActions(cartStore, ['addToCart'])
   },
 
   mounted() {

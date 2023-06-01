@@ -115,12 +115,16 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
 import Swal from 'sweetalert2'
 
 import Pagination from '@/components/PaginationComponent.vue'
 import ProductsBanner from '@/components/ProductsBanner.vue'
 import getCart from '@/mixins/getCart'
 import scrollMixin from '../mixins/scrollMixin'
+
+import { mapActions } from 'pinia'
+import cartStore from '../stores/cart'
 
 export default {
   mixins: [getCart, scrollMixin],
@@ -184,28 +188,7 @@ export default {
     productLink(id) {
       this.$router.push(`/product/${id}`)
     },
-    // 加入購物車
-    addToCart(product_id, qty = 1) {
-      const data = {
-        product_id,
-        qty
-      }
-      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart`
-      this.$http
-        .post(url, { data })
-        .then(() => {
-          this.getCart()
-          Swal.fire({
-            icon: 'success',
-            title: '加入購物車成功！',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        })
-        .catch((err) => {
-          alert(err)
-        })
-    },
+    ...mapActions(cartStore, ['addToCart']),
     // 關鍵字搜尋 過濾產品
     filterSearch() {
       this.isLoading = true
@@ -245,6 +228,7 @@ export default {
     if (selectedCategory) {
       this.category = selectedCategory
     }
+    this.getCart()
     this.getProducts()
     this.getProductsAll()
   }

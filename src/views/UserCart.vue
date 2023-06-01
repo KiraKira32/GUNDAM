@@ -175,6 +175,9 @@ import { Toast } from 'bootstrap'
 
 import ToastMessages from '@/components/ToastMessages.vue'
 
+import { mapActions } from 'pinia'
+import cartStore from '../stores/cart'
+
 export default {
   mixins: [getCart, scrollMixin],
   components: {
@@ -187,7 +190,7 @@ export default {
       isLoading: false,
       products: [],
       productId: '',
-      cartData: {},
+      // cartData: {},
       cartStatus: false,
       showToast: false,
       title: '',
@@ -230,36 +233,38 @@ export default {
         this.toastMessage.hide()
       }, duration)
     },
-    deleteProduct(item) {
-      this.isLoading = true
-      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart/${item.id}`
-      this.$http
-        .delete(url)
-        .then(() => {
-          this.getCart()
-          this.toastShow('購物車訊息', '刪除商品成功', 2000)
-          this.isLoading = false
-        })
-        .catch(() => {
-          this.toastShow('購物車訊息', '刪除商品失敗', 2000)
-          this.isLoading = false
-        })
-    },
-    deleteCartAll() {
-      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/carts`
-      this.isLoading = true
-      this.$http
-        .delete(url)
-        .then(() => {
-          this.getCart()
-          this.isLoading = false
-          this.toastShow('購物車訊息', '購物車清空成功', 2000)
-        })
-        .catch(() => {
-          this.toastShow('購物車訊息', '購物車清空失敗', 2000)
-          this.isLoading = false
-        })
-    },
+    // deleteProduct(item) {
+    //   this.isLoading = true
+    //   const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart/${item.id}`
+    //   this.$http
+    //     .delete(url)
+    //     .then(() => {
+    //       this.getCart()
+    //       this.toastShow('購物車訊息', '刪除商品成功', 2000)
+    //       this.isLoading = false
+    //     })
+    //     .catch(() => {
+    //       this.toastShow('購物車訊息', '刪除商品失敗', 2000)
+    //       this.isLoading = false
+    //     })
+    // },
+    // deleteCartAll() {
+    //   const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/carts`
+    //   this.isLoading = true
+    //   this.$http
+    //     .delete(url)
+    //     .then(() => {
+    //       this.getCart()
+    //       this.isLoading = false
+    //       this.toastShow('購物車訊息', '購物車清空成功', 2000)
+    //     })
+    //     .catch(() => {
+    //       this.toastShow('購物車訊息', '購物車清空失敗', 2000)
+    //       this.isLoading = false
+    //     })
+    // },
+    ...mapActions(cartStore, ['deleteProduct']),
+    ...mapActions(cartStore, ['deleteCartAll']),
     // 優惠卷
     addCoupon() {
       this.isLoading = true
@@ -294,7 +299,8 @@ export default {
   mounted() {
     this.getCart()
     this.toastMessage = new Toast('#toastMessage')
-  }
+  },
+  
 }
 </script>
 

@@ -42,8 +42,10 @@
                 >
                   購物車
                   <i class="fas fa-shopping-cart"></i>
+                  <!-- v-if="cartData.carts.length !== 0"  -->
                   <span
-                  v-if="cartData.carts.length !== 0" class="position-absolute top-1 start-100 translate-middle badge badge-num rounded-pill bg-danger"
+                  v-if="cartData.carts.length !== 0"
+                  class="position-absolute top-1 start-100 translate-middle badge badge-num rounded-pill bg-danger"
                   >
                     {{ cartData.carts.length }}
                   </span>
@@ -58,18 +60,14 @@
 </template>
 
 <script>
-// import getCart from '@/mixins/getCart'
-import emitter from '@/methods/emitter'
-// import emitter from '@/methods/emitter'
+
+import { mapActions, mapState } from 'pinia'
+import cartStore from '../stores/cart'
 
 export default {
-  // mixins: [getCart],
   data() {
     return {
       isNavOpen: false,
-      cartData: {
-        carts:[]
-      }, 
     }
   },
   methods: {
@@ -79,47 +77,13 @@ export default {
     closeNav() {
       this.isNavOpen = false
     },
-    // getCartNum () {
-    //   const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart`
-    //   this.$http
-    //     .get(url)
-    //     .then((res) => {
-    //       this.cartData = res.data.data
-    //       console.log('購物車：', this.cartData.carts);
-    //     })
-    //     .catch(() => {
-    //       this.isLoading = false;
-    //     });
-    // }
-    updateCartNum() {
-      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart`;
-      this.$http
-        .get(url)
-        .then((res) => {
-          this.cartData = res.data.data;
-          console.log("購物車：", this.cartData.carts);
-        })
-        .catch(() => {
-          this.isLoading = false;
-        });
-    }
+    ...mapActions(cartStore, ['getCart']),
+  },
+  computed: {
+    ...mapState(cartStore, ['cartData'])
   },
   mounted() {
-    // this.getCartNum()
-    // emitter.on('getCartNum', () => {
-    //   this.getCartNum()
-    // })
-    this.updateCartNum();
-
-// 發送'getCartNum'事件以更新購物車數量
-emitter.on("getCartNum", () => {
-  this.updateCartNum();
-});
-
-// 監聽'addToCart'事件並更新購物車數量
-emitter.on("addToCart", () => {
-  this.updateCartNum();
-});
+    this.getCart()
   }
 }
 </script>
