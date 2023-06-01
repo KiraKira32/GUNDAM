@@ -120,9 +120,10 @@ import Swal from 'sweetalert2'
 import Pagination from '@/components/PaginationComponent.vue'
 import ProductsBanner from '@/components/ProductsBanner.vue'
 import getCart from '@/mixins/getCart'
+import scrollMixin from '../mixins/scrollMixin'
 
 export default {
-  mixins: [getCart],
+  mixins: [getCart, scrollMixin],
   components: {
     Pagination,
     ProductsBanner
@@ -135,7 +136,7 @@ export default {
       productsAll: [],
       filterProducts: [],
       category: '',
-      categories: [],
+      categories: [], 
       cart: {},
       cartStatus: false,
       search: ''
@@ -169,11 +170,12 @@ export default {
     createCategories() {
       if (this.productsAll.length !== 0) {
         const categoriesMap = this.productsAll.map((item) => item.category)
-        this.categories = [...new Set(categoriesMap)] // 去除重複的category
+        this.categories = [...new Set(categoriesMap)] // 去除重複&儲存 category
       } else {
         this.filterProducts = this.products
       }
     },
+    // 設置分類並觸發
     setCategory(category = '') {
       this.category = category
       this.getProducts()
@@ -204,6 +206,7 @@ export default {
           alert(err)
         })
     },
+    // 關鍵字搜尋 過濾產品
     filterSearch() {
       this.isLoading = true
       setTimeout(() => {
@@ -242,7 +245,6 @@ export default {
     if (selectedCategory) {
       this.category = selectedCategory
     }
-
     this.getProducts()
     this.getProductsAll()
   }

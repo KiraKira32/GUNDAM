@@ -47,7 +47,7 @@
                 <swiper-slide>
                   <img class="img-product" :src="product.imageUrl" />
                 </swiper-slide>
-                <swiper-slide v-for="imageUrl in product.imagesUrl" :key="imageUrl">
+                <swiper-slide v-for="(imageUrl, index) in product.imagesUrl" :key="'image-' + index">
                   <img class="img-product" :src="imageUrl" />
                 </swiper-slide>
               </swiper>
@@ -65,7 +65,7 @@
                   <img class="img-product" :src="product.imageUrl" />
                 </swiper-slide>
 
-                <swiper-slide v-for="imageUrl in product.imagesUrl" :key="imageUrl">
+                <swiper-slide v-for="(imageUrl, index) in product.imagesUrl" :key="'image-' + index">
                   <img class="img-product" :src="imageUrl" />
                 </swiper-slide>
               </swiper>
@@ -189,11 +189,11 @@
               class="d-flex justify-content-center mb-5"
               v-for="item in filteredProducts"
               :key="item.id"
-              @click="selectedProductId = item.id"
+              @click="selectedProductId = item.id; getProductId()"
             >
               <div class="card card-shadow" style="width: 16rem">
                 <router-link :to="`/product/${item.id}`">
-                  <img :src="item.imageUrl" class="card-img-top card-img" alt="" />
+                  <img :src="item.imageUrl" class="card-img-top card-img" alt="" @click="scrollTop"/>
                 </router-link>
                 <div class="card-body p-0">
                   <h5 class="card-title p-2">{{ item.title }}</h5>
@@ -269,7 +269,6 @@ export default {
   methods: {
     getProductId() {
       // 取出單一產品頁面的 ID
-      this.isLoading = true
       const { id } = this.$route.params
       const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/product/${id}`
       this.$http
@@ -277,9 +276,7 @@ export default {
         .then((res) => {
           this.scrollTop()
           this.product = res.data.product
-          this.isLoading = false
-          // this.selectedProduct = this.product
-          console.log(url);
+          this.selectedProduct = this.product
         })
         .catch((err) => {
           alert(err)
@@ -291,7 +288,7 @@ export default {
       this.$http
         .get(url)
         .then((res) => {
-          this.products = res.data.products.filter((products) => products.price < 500)
+          this.products = res.data.products.filter((products) => products.price < 500) // 興趣篩選
           // this.products = res.data.products.filter((products) => products.category === '水星的魔女')
           this.isLoading = false
         })
@@ -313,7 +310,7 @@ export default {
       const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart`
       this.$http
         .post(url, { data })
-        .then((res) => {
+        .then(() => {
           this.getCart()
           this.qty = 1
           Swal.fire({
@@ -322,7 +319,6 @@ export default {
             showConfirmButton: false,
             timer: 1500
           })
-          console.log(res);
         })
         .catch((err) => {
           alert(err)
@@ -334,10 +330,6 @@ export default {
     this.getProductId()
     this.getProductsAll()
     this.imagesUrl.unshift(this.product.imageUrl)
-
-  //   if (this.product.imageUrl) {
-  //   this.imagesUrl.unshift(this.product.imageUrl) 
-  // }
   }
 }
 </script>

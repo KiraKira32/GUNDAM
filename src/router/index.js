@@ -23,12 +23,21 @@ const router = createRouter({
           component: () => import('../views/ProductView.vue')
         },
         {
-          path: '/faq',
+          path: '/FAQ',
           component: () => import('../views/FAQ.vue'),
         },
         {
           path: '/carts',
           component: () => import('../views/UserCart.vue'),
+        },
+        {
+          path: '/cartorder',
+          component: () => import('../views/CartOrder.vue'),
+        },
+        {
+          path: '/checkorder/:id',
+          name: '單一訂單內容',
+          component: () => import('../views/CheckOrder.vue'),
         }
       ]
     },

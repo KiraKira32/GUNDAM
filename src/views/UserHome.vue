@@ -53,8 +53,10 @@
 <script>
 import DisplayProducts from '../components/DisplayProducts.vue'
 import SloganTitle from '../components/SloganTitle.vue'
+import scrollMixin from '../mixins/scrollMixin'
 
 export default {
+  mixins: [scrollMixin],
   components: {
     DisplayProducts,
     SloganTitle
@@ -77,6 +79,7 @@ export default {
     toggleNav() {
       this.isNavOpen = !this.isNavOpen
     },
+    // 渲染全部分類 & 觸發產品分類
     category(item) {
       this.$router.push({ path: '/products', query: { category: item } })
     },
@@ -84,7 +87,7 @@ export default {
     redirectToCategory(event) {
       const selectedCategory = event.target.dataset.category
       this.$router.push({ path: '/products', query: { category: selectedCategory } })
-    }
+    },
   },
   mounted() {
     this.Loading()

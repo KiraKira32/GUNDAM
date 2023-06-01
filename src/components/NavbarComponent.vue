@@ -42,11 +42,10 @@
                 >
                   購物車
                   <i class="fas fa-shopping-cart"></i>
-                  <!-- v-if="cartData.carts.length > 0" -->
                   <span
-                    class="position-absolute top-1 start-100 translate-middle badge badge-num rounded-pill bg-danger"
+                  v-if="cartData.carts.length !== 0" class="position-absolute top-1 start-100 translate-middle badge badge-num rounded-pill bg-danger"
                   >
-                    <!-- {{ totalCartItems }} -->
+                    {{ cartData.carts.length }}
                   </span>
                 </router-link>
               </li>
@@ -59,14 +58,18 @@
 </template>
 
 <script>
-import getCart from '@/mixins/getCart'
+// import getCart from '@/mixins/getCart'
+import emitter from '@/methods/emitter'
 // import emitter from '@/methods/emitter'
 
 export default {
-  mixins: [getCart],
+  // mixins: [getCart],
   data() {
     return {
       isNavOpen: false,
+      cartData: {
+        carts:[]
+      }, 
     }
   },
   methods: {
@@ -76,22 +79,48 @@ export default {
     closeNav() {
       this.isNavOpen = false
     },
-  },
-  computed: {
-    // 購物車的數量
-    // totalCartItems() {
-    //   let total = 0
-    //   if (this.cartData && this.cartData.carts) {
-    //     this.cartData.carts.forEach((item) => {
-    //       total += item.qty
+    // getCartNum () {
+    //   const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart`
+    //   this.$http
+    //     .get(url)
+    //     .then((res) => {
+    //       this.cartData = res.data.data
+    //       console.log('購物車：', this.cartData.carts);
     //     })
-    //   }
-    //   return total
-    // },
+    //     .catch(() => {
+    //       this.isLoading = false;
+    //     });
+    // }
+    updateCartNum() {
+      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart`;
+      this.$http
+        .get(url)
+        .then((res) => {
+          this.cartData = res.data.data;
+          console.log("購物車：", this.cartData.carts);
+        })
+        .catch(() => {
+          this.isLoading = false;
+        });
+    }
   },
   mounted() {
-    this.getCart()
-  },
+    // this.getCartNum()
+    // emitter.on('getCartNum', () => {
+    //   this.getCartNum()
+    // })
+    this.updateCartNum();
+
+// 發送'getCartNum'事件以更新購物車數量
+emitter.on("getCartNum", () => {
+  this.updateCartNum();
+});
+
+// 監聽'addToCart'事件並更新購物車數量
+emitter.on("addToCart", () => {
+  this.updateCartNum();
+});
+  }
 }
 </script>
 

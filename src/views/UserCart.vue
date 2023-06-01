@@ -39,20 +39,22 @@
           <div class="text-end d-flex justify-content-end align-items-center mx-2 pt-1">
             <a href="#"></a>
             <IconTrash color="#DF0000" size="20" />
-            <span class="text-danger" @click="deleteCartAll()" style="cursor: pointer;">清空購物車</span>
+            <span class="text-danger" @click="deleteCartAll()" style="cursor: pointer"
+              >清空購物車</span
+            >
           </div>
           <hr class="border-line" />
 
           <table class="table align-middle">
             <tbody>
-              <tr v-for="item in cartData.carts" :key="item.id" class="">
+              <tr v-for="item in cartData.carts" :key="item.id">
                 <td>
                   <img
                     class="carts-img"
                     :src="item.product.imageUrl"
                     alt="item.product.imageUrl"
                     @click="$router.push(`/product/${item.product_id}`)"
-                    style="cursor: pointer;"
+                    style="cursor: pointer"
                   />
                 </td>
                 <td>{{ item.product.title }}</td>
@@ -77,21 +79,70 @@
                 </td>
                 <td class="text-right" style="width: 24px">
                   <div @click="deleteProduct(item)">
-                    <IconX color="#DF0000" style="cursor: pointer;"/>
+                    <IconX color="#DF0000" style="cursor: pointer" />
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        <div class="total-block d-flex justify-content-end py-4">
-          <div v-if="cartData.carts" class="text-secondary mx-4">共 {{ getTotalQty() }} 件商品</div>
-          <div class="products-num text-end text-secondary">商品總金額</div>
-          <div class="products-price mx-4 text-danger">
-            NT${{ $filters.currency(cartData.total) }}
+        <div class="coupon-block">
+          <div class="coupon py-1">
+            <div>
+              <div v-if="couponApplied" class="text-success text-end">已套用優惠券</div>
+              <div v-else-if="couponExpired" class="text-danger text-end">
+                優惠券無法使用或已過期
+              </div>
+            </div>
+            <div class="input-group input-group-sm">
+              <input
+                type="text"
+                placeholder="請輸入優惠碼"
+                class="form-control"
+                v-model="couponInfo"
+              />
+              <div class="input-group-append">
+                <button type="button" class="btn btn-danger coupon-button" @click="addCoupon">
+                  套用優惠碼
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="d-flex justify-content-between mt-5">
+        <div class="total-block">
+          <div class="d-flex justify-content-end pt-4 pb-4">
+            <div v-if="cartData.carts" class="text-secondary mx-4">
+              共 {{ getTotalQty() }} 件商品
+            </div>
+            <div class="products-num text-end text-secondary">商品金額</div>
+            <div class="products-price mx-4 text-secondary">
+              NT$ {{ $filters.currency(cartData.total) }}
+            </div>
+          </div>
+          <div v-if="cartData.total !== cartData.total " class="d-flex justify-content-end align-items-center pb-3 pt-2">
+            <hr class="mx-4">
+              <div class="text-secondary">小計</div>
+              <div class="text-danger mx-4 fs-4">
+                NT$ {{ $filters.currency(cartData.total) }}
+              </div>
+            </div>
+          <div v-if="cartData.final_total !== cartData.total" class="couponTotal">
+            <div class="d-flex justify-content-end py-2">
+              <div class="text-danger">優惠折扣</div>
+              <div class="text-danger mx-4">
+                - NT$ {{ $filters.currency(cartData.final_total) }}
+              </div>
+            </div>
+            <hr class="mx-4">
+            <div class="d-flex justify-content-end align-items-center pb-3 pt-2">
+              <div class="text-secondary">小計</div>
+              <div class="text-danger mx-4 fs-4">
+                NT$ {{ $filters.currency(`${cartData.total - cartData.final_total}`) }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
           <button
             type="button"
             class="total-btn btn btn-color text-white py-2"
@@ -99,7 +150,12 @@
           >
             繼續購物
           </button>
-          <button type="button" class="total-btn btn btn-danger py-2">前往結帳</button>
+          <button 
+            type="button" 
+            class="total-btn btn btn-danger py-2"
+            @click="$router.push(`/cartorder`)"
+            >下一步
+          </button>
         </div>
       </div>
     </div>
@@ -109,6 +165,8 @@
 
 <script>
 import getCart from '@/mixins/getCart'
+import Swal from 'sweetalert2'
+import scrollMixin from '../mixins/scrollMixin'
 
 import { IconTrash } from '@tabler/icons-vue'
 import { IconX } from '@tabler/icons-vue'
@@ -118,7 +176,7 @@ import { Toast } from 'bootstrap'
 import ToastMessages from '@/components/ToastMessages.vue'
 
 export default {
-  mixins: [getCart],
+  mixins: [getCart, scrollMixin],
   components: {
     IconTrash,
     IconX,
@@ -133,15 +191,20 @@ export default {
       cartStatus: false,
       showToast: false,
       title: '',
-      message: ''
+      message: '',
+      couponInfo: '',
+      couponApplied: false,
+      couponExpired: false
     }
   },
   methods: {
+    // 顯示總數量
     getTotalQty() {
       return this.cartData.carts.reduce((total, cart) => total + cart.qty, 0)
     },
     // 調整購物車數量
     updataCart(item) {
+      this.isLoading = true
       const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart/${item.id}`
       const data = {
         product_id: item.product.id,
@@ -150,6 +213,7 @@ export default {
       this.$http
         .put(url, { data })
         .then(() => {
+          this.isLoading = false
           this.getCart()
           this.toastShow('購物車訊息', '商品數量更新成功', 2000)
         })
@@ -196,13 +260,39 @@ export default {
           this.isLoading = false
         })
     },
-    scrollTop() {
-      window.scrollTo(0, 0)
-    }
+    // 優惠卷
+    addCoupon() {
+      this.isLoading = true
+      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/coupon`
+      const coupon = {
+        code: this.couponInfo
+      }
+      this.$http
+        .post(url, { data: coupon })
+        .then(() => {
+          this.isLoading = false
+          this.getCart()
+          this.couponInfo = '';
+          this.couponApplied = true
+          this.couponExpired = false
+        })
+        .catch(() => {
+          this.isLoading = false
+          this.couponInfo = ''
+          this.couponApplied = false
+          this.couponExpired = true
+          Swal.fire({
+            icon: 'error',
+            title: '優惠卷輸入失敗！',
+            showConfirmButton: false,
+            text: '優惠券無法使用或已過期',
+            timer: 2000
+          })
+        })
+    },
   },
   mounted() {
     this.getCart()
-    this.scrollTop()
     this.toastMessage = new Toast('#toastMessage')
   }
 }

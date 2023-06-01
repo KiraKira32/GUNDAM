@@ -1,12 +1,4 @@
 <template>
-  <Loading :active="isLoading" class="vld-overlay">
-    <div class="loadingio-spinner-ripple-j9w2wm5soxm">
-      <div class="ldio-3c1sqxz2ek1">
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  </Loading>
   <main class="main-question main-block py-3">
     <div class="container p-0">
       <!-- breadcrumb -->
@@ -183,11 +175,9 @@
 </template>
 
 <script>
+import scrollMixin from '../mixins/scrollMixin'
+
 export default {
-  data() {
-    return {
-      isLoading: false
-    }
-  },
+  mixins: [scrollMixin]
 }
 </script>
