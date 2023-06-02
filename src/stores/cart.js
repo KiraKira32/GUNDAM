@@ -2,16 +2,10 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
-// import ToastMessages from '@/components/ToastMessages.vue'
-
 // 目前這個環境不屬於 Vue 因此要使用 axios
 const cartStore = defineStore('cart', {
   state: () => {
     return {
-      // carts: [],
-      total: 0,
-      fina_total: 0,
-      isLoading: false,
       cartData: {
         carts:[]
       }, 
@@ -23,9 +17,10 @@ const cartStore = defineStore('cart', {
       const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart`
       axios.get(url)
         .then((res) => {
-          // this.carts = res.data.data.carts
           this.cartData = res.data.data
-
+        })
+        .catch((err) => {
+          alert(err)
         })
 
     },
@@ -49,11 +44,13 @@ const cartStore = defineStore('cart', {
         })
     },
     deleteProduct(item) {
+      this.isLoading = true
       const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart/${item.id}`
       axios
         .delete(url)
         .then(() => {
           this.getCart()
+          this.isLoading = false
         })
         .catch((err) => {
           alert(err)
@@ -72,9 +69,6 @@ const cartStore = defineStore('cart', {
         })
     },
   },
-  getters() {
-    this.getCart()
-  }
 });
 
 export default cartStore;

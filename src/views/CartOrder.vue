@@ -106,18 +106,19 @@
 </template>
 
 <script>
-import getCart from '@/mixins/getCart'
-import scrollMixin from '../mixins/scrollMixin'
 
 import Swal from 'sweetalert2'
 
+import { mapActions, mapState } from 'pinia'
+import cartStore from '../stores/cart'
+
+
 export default {
-  mixins: [getCart, scrollMixin],
+
   data() {
     return {
       isLoading: false,
       products: [],
-      cartData: {},
       form: {
         user: {
           name: '',
@@ -171,10 +172,18 @@ export default {
         this.isLoading = false
         this.createCategories() // 觸發 category過濾
       })
-    }
+    },
+    scrollTop() {
+      window.scrollTo(0, 0);
+    },
+    ...mapActions(cartStore, ['getCart']),
   },
   mounted() {
-    this.getCart
-  }
+    this.scrollTop()
+    this.getCart()
+  },
+  computed: {
+    ...mapState(cartStore, ['cartData'])
+  },
 }
 </script>

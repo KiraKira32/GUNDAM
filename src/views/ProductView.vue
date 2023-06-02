@@ -237,14 +237,10 @@ import Swal from 'sweetalert2'
 
 // import required modules
 import { FreeMode, Navigation, Thumbs } from 'swiper'
-
-import getCart from '@/mixins/getCart'
-
-import { mapActions } from 'pinia'
+import { mapActions,mapState } from 'pinia'
 import cartStore from '../stores/cart'
 
 export default {
-  mixins: [getCart],
   components: {
     Swiper,
     SwiperSlide
@@ -267,7 +263,8 @@ export default {
     // 過濾列表，只顯示未選擇的商品
     filteredProducts() {
       return this.products.filter((item) => item.id !== this.selectedProductId)
-    }
+    },
+    ...mapState(cartStore, ['cartData'])
   },
   methods: {
     getProductId() {
@@ -292,7 +289,6 @@ export default {
         .get(url)
         .then((res) => {
           this.products = res.data.products.filter((products) => products.price < 500) // 興趣篩選
-          // this.products = res.data.products.filter((products) => products.category === '水星的魔女')
           this.isLoading = false
         })
         .catch((err) => {
@@ -305,9 +301,8 @@ export default {
     scrollTop() {
       window.scrollTo(0, 0)
     },
-    ...mapActions(cartStore, ['addToCart'])
+    ...mapActions(cartStore, ['addToCart', 'getCart'])
   },
-
   mounted() {
     this.getProductId()
     this.getProductsAll()

@@ -53,10 +53,8 @@
 <script>
 import DisplayProducts from '../components/DisplayProducts.vue'
 import SloganTitle from '../components/SloganTitle.vue'
-import scrollMixin from '../mixins/scrollMixin'
 
 export default {
-  mixins: [scrollMixin],
   components: {
     DisplayProducts,
     SloganTitle
@@ -88,9 +86,13 @@ export default {
       const selectedCategory = event.target.dataset.category
       this.$router.push({ path: '/products', query: { category: selectedCategory } })
     },
+    scrollTop() {
+      window.scrollTo(0, 0);
+    },
   },
   mounted() {
     this.Loading()
+    this.scrollTop()
   }
 }
 </script>

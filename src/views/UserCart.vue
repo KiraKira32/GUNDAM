@@ -119,13 +119,14 @@
               NT$ {{ $filters.currency(cartData.total) }}
             </div>
           </div>
-          <div v-if="cartData.total !== cartData.total " class="d-flex justify-content-end align-items-center pb-3 pt-2">
-            <hr class="mx-4">
-              <div class="text-secondary">小計</div>
-              <div class="text-danger mx-4 fs-4">
-                NT$ {{ $filters.currency(cartData.total) }}
-              </div>
-            </div>
+          <div
+            v-if="cartData.total !== cartData.total"
+            class="d-flex justify-content-end align-items-center pb-3 pt-2"
+          >
+            <hr class="mx-4" />
+            <div class="text-secondary">小計</div>
+            <div class="text-danger mx-4 fs-4">NT$ {{ $filters.currency(cartData.total) }}</div>
+          </div>
           <div v-if="cartData.final_total !== cartData.total" class="couponTotal">
             <div class="d-flex justify-content-end py-2">
               <div class="text-danger">優惠折扣</div>
@@ -133,7 +134,7 @@
                 - NT$ {{ $filters.currency(cartData.final_total) }}
               </div>
             </div>
-            <hr class="mx-4">
+            <hr class="mx-4" />
             <div class="d-flex justify-content-end align-items-center pb-3 pt-2">
               <div class="text-secondary">小計</div>
               <div class="text-danger mx-4 fs-4">
@@ -150,11 +151,12 @@
           >
             繼續購物
           </button>
-          <button 
-            type="button" 
+          <button
+            type="button"
             class="total-btn btn btn-danger py-2"
             @click="$router.push(`/cartorder`)"
-            >下一步
+          >
+            下一步
           </button>
         </div>
       </div>
@@ -164,9 +166,7 @@
 </template>
 
 <script>
-import getCart from '@/mixins/getCart'
 import Swal from 'sweetalert2'
-import scrollMixin from '../mixins/scrollMixin'
 
 import { IconTrash } from '@tabler/icons-vue'
 import { IconX } from '@tabler/icons-vue'
@@ -175,11 +175,11 @@ import { Toast } from 'bootstrap'
 
 import ToastMessages from '@/components/ToastMessages.vue'
 
-import { mapActions } from 'pinia'
+
+import { mapActions, mapState } from 'pinia'
 import cartStore from '../stores/cart'
 
 export default {
-  mixins: [getCart, scrollMixin],
   components: {
     IconTrash,
     IconX,
@@ -188,10 +188,8 @@ export default {
   data() {
     return {
       isLoading: false,
-      products: [],
-      productId: '',
-      // cartData: {},
-      cartStatus: false,
+      // products: [],
+      // productId: '',
       showToast: false,
       title: '',
       message: '',
@@ -263,8 +261,8 @@ export default {
     //       this.isLoading = false
     //     })
     // },
-    ...mapActions(cartStore, ['deleteProduct']),
-    ...mapActions(cartStore, ['deleteCartAll']),
+    ...mapActions(cartStore, ['getCart','deleteProduct', 'deleteCartAll']),
+    // ...mapActions(cartStore, ['deleteCartAll']),
     // 優惠卷
     addCoupon() {
       this.isLoading = true
@@ -277,7 +275,7 @@ export default {
         .then(() => {
           this.isLoading = false
           this.getCart()
-          this.couponInfo = '';
+          this.couponInfo = ''
           this.couponApplied = true
           this.couponExpired = false
         })
@@ -295,12 +293,18 @@ export default {
           })
         })
     },
+    scrollTop() {
+      window.scrollTo(0, 0);
+    },
+  },
+  computed: {
+    ...mapState(cartStore, ['cartData'])
   },
   mounted() {
     this.getCart()
+    this.scrollTop()
     this.toastMessage = new Toast('#toastMessage')
   },
-  
 }
 </script>
 

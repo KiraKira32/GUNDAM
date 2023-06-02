@@ -120,14 +120,11 @@ import Swal from 'sweetalert2'
 
 import Pagination from '@/components/PaginationComponent.vue'
 import ProductsBanner from '@/components/ProductsBanner.vue'
-import getCart from '@/mixins/getCart'
-import scrollMixin from '../mixins/scrollMixin'
 
-import { mapActions } from 'pinia'
+import { mapActions, mapState } from 'pinia'
 import cartStore from '../stores/cart'
 
 export default {
-  mixins: [getCart, scrollMixin],
   components: {
     Pagination,
     ProductsBanner
@@ -141,8 +138,7 @@ export default {
       filterProducts: [],
       category: '',
       categories: [], 
-      cart: {},
-      cartStatus: false,
+      // cart: {},
       search: ''
     }
   },
@@ -188,7 +184,7 @@ export default {
     productLink(id) {
       this.$router.push(`/product/${id}`)
     },
-    ...mapActions(cartStore, ['addToCart']),
+    ...mapActions(cartStore, ['addToCart', 'getCart']),
     // 關鍵字搜尋 過濾產品
     filterSearch() {
       this.isLoading = true
@@ -212,7 +208,10 @@ export default {
           }
         }
       }, 1000)
-    }
+    },
+    scrollTop() {
+      window.scrollTo(0, 0);
+    },
   },
   watch: {
     category() {
@@ -222,6 +221,9 @@ export default {
       !this.search ? this.createCategories() : this.filterSearch()
     }
   },
+  computed: {
+    ...mapState(cartStore, ['cartData'])
+  },
   mounted() {
     // 導向產品類別
     const selectedCategory = this.$route.query.category
@@ -229,6 +231,7 @@ export default {
       this.category = selectedCategory
     }
     this.getCart()
+    this.scrollTop()
     this.getProducts()
     this.getProductsAll()
   }

@@ -175,9 +175,15 @@
 </template>
 
 <script>
-import scrollMixin from '../mixins/scrollMixin'
 
 export default {
-  mixins: [scrollMixin]
-}
+  methods: {
+    scrollTop() {
+      window.scrollTo(0, 0);
+    },
+  },
+  mounted() {
+    this.scrollTop();
+  },
+};
 </script>
