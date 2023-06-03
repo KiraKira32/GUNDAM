@@ -381,7 +381,7 @@ export default {
   }
   .product-width {
     max-width: 100%;
-    // max-height: 100%;
+    max-height: 100%;
     width: auto !important;
     height: auto !important;
   }

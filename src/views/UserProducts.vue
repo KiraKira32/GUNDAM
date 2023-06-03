@@ -253,9 +253,9 @@ export default {
 }
 
 @media screen and (max-width: 480px) {
-  // .card-products-img  {
-  //   height: 250px;
-  // }
+  .card-products-img  {
+    height: 250px;
+  }
 }
 
 </style>

@@ -1,35 +1,32 @@
-# gundam-front
+# 鋼彈 GUNDAM 模型電商
 
-This template should help get you started developing with Vue 3 in Vite.
+使用 Vue CLI 3 建立 SPA，前台展示。
 
-## Recommended IDE Setup
+## 頁面
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- [GUNDAM鋼彈](https://kirakira32.github.io/GUNDAM/#/)
 
-## Customize configuration
+## 學習技能
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+1. Vite 環境建置
+2. Vue Router
+3. Pinia Store
+4. 元件功能拆分
 
-## Project Setup
+## 前台功能
 
-```sh
-npm install
-```
+  - [x] 串接取得產品 API
+  - [x] 產品分類功能、搜尋功能
+  - [x] 產品加入購物車功能
+  - [x] 購物車編輯修改、刪除
+  - [x] 結帳優惠卷輸入
+  - [x] 使用者表單驗證
 
-### Compile and Hot-Reload for Development
+## 使用套件
 
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+* Bootstrap 5
+* vue-axios
+* moment
+* swiper套件
+* VeeValidate
+* vue-loading
