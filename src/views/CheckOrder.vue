@@ -30,24 +30,24 @@
           <table v-if="!order.is_paid" class="table align-middle">
             <tbody>
               <tr v-for="item in order.products" :key="item.id" style="background: #f4f4f4">
-                <td>
+                <td class="check-img">
                   <img
-                    class="carts-img"
+                    class="check-img"
                     :src="item.product.imageUrl"
                     alt="item.product.imageUrl"
                     style="width: 100px; height: 60px"
                   />
                 </td>
                 <td>{{ item.product.title }}</td>
-                <td style="width: 80px">
-                  <div class="input-group input-group-sm" style="width: 80px">
+                <td width="50">
+                  <div class="input-group input-group-sm">
                     <div class="input-group">{{ item.qty }} 台</div>
                   </div>
                 </td>
-                <td class="text-danger text-right">
+                <td width="100" class="check-price">
                   NT$ {{ $filters.currency(item.product.price) }}
                 </td>
-                <td class="align-middle text-right px-0">
+                <td class="text-danger align-middle">
                   NT${{ $filters.currency(item.product.price * item.qty) }}
                 </td>
               </tr>
@@ -57,22 +57,17 @@
             <div class="text-secondary">小計</div>
             <div class="text-danger mx-4 fs-4">NT$ {{ $filters.currency(order.total) }}</div>
           </div>
-          <!-- paysuccess -->
-          <!-- <div v-if="order.is_paid" class="d-flex justify-content-center align-items-center">
-            <i class="bi bi-check-circle"></i>
-            <h3 class="font-weight-bold ml-3">付款完成！</h3>
-          </div> -->
           <hr v-if="!order.is_paid" class="mx-3" />
           <div class="Customer-Infor">
             <h4 class="text-center py-3" style="background: #f4f4f4">客戶訂單資料</h4>
             <table class="table my-5 d-flex justify-content-center">
               <tbody v-if="order.user">
                 <tr>
-                  <th width="200">訂單編號</th>
+                  <th width="200" class="order-num">訂單編號</th>
                   <td>{{ order.id }}</td>
                 </tr>
                 <tr>
-                  <th width="200">訂單日期</th>
+                  <th>訂單日期</th>
                   <td>{{ $moment(new Date (order.create_at * 1000)).format('YYYY-MM-DD HH:mm') }}</td>
                 </tr>
                 <tr>
@@ -105,12 +100,12 @@
         <div v-if="order.is_paid === false" class="d-flex justify-content-between mt-4">
           <button
             type="button"
-            class="total-btn btn btn-color text-white py-2"
+            class="total-btn check-btn btn btn-color text-white py-2"
             @click="$router.push(`/products`)"
           >
             取消付款
           </button>
-          <button type="button" class="total-btn btn btn-danger py-2" @click="payOrder">確認付款</button>
+          <button type="button" class="total-btn check-btn btn btn-danger py-2" @click="payOrder">確認付款</button>
         </div>
         <div v-if="order.is_paid === true" class="d-flex justify-content-center mt-4">
           <button
@@ -193,3 +188,29 @@ export default {
   }
 }
 </script>
+
+<style>
+@media screen and (max-width: 768px) {
+  .check-img {
+    display: none;
+  }
+  .check-btn {
+    padding: 60px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .check-img {
+    display: none;
+  }
+  .check-btn {
+    padding: 40px;
+  }
+  .check-price {
+    display: none;
+  }
+  .order-num {
+    width: 100px;
+  }
+}
+
+</style>

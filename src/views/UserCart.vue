@@ -37,9 +37,8 @@
         <h3 class="mb-4 text-center">購物車</h3>
         <div class="shopList p-2">
           <div class="text-end d-flex justify-content-end align-items-center mx-2 pt-1">
-            <a href="#"></a>
             <IconTrash color="#DF0000" size="20" />
-            <span class="text-danger" @click="deleteCartAll()" style="cursor: pointer"
+            <span class="text-danger text-delete" @click="deleteCartAll()" style="cursor: pointer"
               >清空購物車</span
             >
           </div>
@@ -48,7 +47,7 @@
           <table class="table align-middle">
             <tbody>
               <tr v-for="item in cartData.carts" :key="item.id">
-                <td>
+                <td width="100" class="cart-img-block">
                   <img
                     class="carts-img"
                     :src="item.product.imageUrl"
@@ -57,29 +56,29 @@
                     style="cursor: pointer"
                   />
                 </td>
-                <td>{{ item.product.title }}</td>
-                <td style="width: 80px">
-                  <div class="input-group input-group-sm" style="width: 80px">
+                <td width="440" class="card-text-product px-0">{{ item.product.title }}</td>
+                <td width="90" class="num-box">
+                  <div class="input-group input-group-sm">
                     <div class="input-group">
                       <input
                         min="1"
                         type="number"
-                        class="form-control text-center"
+                        class="form-control text-center card-text-product"
                         v-model.number="item.qty"
                         @change="updataCart(item)"
                       />
                     </div>
                   </div>
                 </td>
-                <td class="text-danger text-right">
-                  NT$ {{ $filters.currency(item.product.price) }}
+                <td width="100" class="card-text-product card-text-price text-price">
+                  NT${{ $filters.currency(item.product.price) }}
                 </td>
-                <td class="align-middle text-right px-0">
+                <td width="100" class="text-danger align-middle card-text-product card-text-price">
                   NT${{ $filters.currency(item.product.price * item.qty) }}
                 </td>
-                <td class="text-right" style="width: 24px">
+                <td class="card-text-icon" style="width: 24px">
                   <div @click="deleteProduct(item)">
-                    <IconX color="#DF0000" style="cursor: pointer" />
+                    <IconX class="card-text-icon" color="#DF0000" style="cursor: pointer" />
                   </div>
                 </td>
               </tr>
@@ -120,7 +119,7 @@
             </div>
           </div>
           <div
-            v-if="cartData.total !== cartData.total"
+            v-if="cartData.total == cartData.total"
             class="d-flex justify-content-end align-items-center pb-3 pt-2"
           >
             <hr class="mx-4" />
@@ -231,38 +230,7 @@ export default {
         this.toastMessage.hide()
       }, duration)
     },
-    // deleteProduct(item) {
-    //   this.isLoading = true
-    //   const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/cart/${item.id}`
-    //   this.$http
-    //     .delete(url)
-    //     .then(() => {
-    //       this.getCart()
-    //       this.toastShow('購物車訊息', '刪除商品成功', 2000)
-    //       this.isLoading = false
-    //     })
-    //     .catch(() => {
-    //       this.toastShow('購物車訊息', '刪除商品失敗', 2000)
-    //       this.isLoading = false
-    //     })
-    // },
-    // deleteCartAll() {
-    //   const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/carts`
-    //   this.isLoading = true
-    //   this.$http
-    //     .delete(url)
-    //     .then(() => {
-    //       this.getCart()
-    //       this.isLoading = false
-    //       this.toastShow('購物車訊息', '購物車清空成功', 2000)
-    //     })
-    //     .catch(() => {
-    //       this.toastShow('購物車訊息', '購物車清空失敗', 2000)
-    //       this.isLoading = false
-    //     })
-    // },
     ...mapActions(cartStore, ['getCart','deleteProduct', 'deleteCartAll']),
-    // ...mapActions(cartStore, ['deleteCartAll']),
     // 優惠卷
     addCoupon() {
       this.isLoading = true
@@ -310,10 +278,92 @@ export default {
 
 <style>
 @media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+  .breadcrumb {
+    margin-left: 2% ;
   }
+}
+@media screen and (max-width: 991px) {
+  .carts-img {
+    width: 80px;
+    height:50px;
+  }
+  .cart-text {
+    padding: 1% !important;
+    padding-bottom: 5% !important;
+    padding-top: 5% !important;
+  }
+  .coupon-block {
+    padding-left: 60%;
+  }
+  .card-text-product{
+    font-size: 14px;
+  }
+  .cart-text {
+    margin-right: 4% !important;
+    margin-left: 4% !important;
+  }
+}
+@media screen and (max-width: 767px) {
+  .cart-text {
+    padding: 1% !important;
+    padding-bottom: 5% !important;
+    padding-top: 5% !important;
+  }
+  .cart-text {
+    margin-right: 2% !important;
+    margin-left: 2% !important;
+  }
+  .card-text-product {
+    font-size: 10px;
+  }
+  .card-text-icon {
+    width: 18px;
+  }
+  .coupon-block{
+    padding-left: 50%;
+  }
+}
+@media screen and (max-width: 575px){
+  .breadcrumb {
+    margin-left: 2% ;
+  }
+  .total-btn {
+    padding: 10%;
+  }
+  .coupon-block{
+    padding-left: 40%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .carts-img {
+    display: none;
+  }
+  .cart-img-block{
+    padding: 0px !important;
+    width: 0px;
+  }
+  .card-text-price{
+    padding: 1px !important;
+    width: 60px !important;
+  }
+  .num-box {
+    width: 70px ;
+  }
+  .text-price{
+    display: none;
+  }
+  .text-delete {
+    margin-top: 0px !important;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .shopList {
+    padding: 4px !important;
+  }
+  .coupon-block{
+    padding-left: 30%;
+  }
+
 }
 </style>

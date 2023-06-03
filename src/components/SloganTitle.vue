@@ -19,7 +19,12 @@
   top: 260px;
   left: 220px;
 }
-
+@media screen and (min-width:1920px) {
+  .banner-title {
+    top: 300px;
+    left: 500px;
+  }
+}
 @media screen and (max-width: 1200px) {
   .banner-title {
     top: 180px;

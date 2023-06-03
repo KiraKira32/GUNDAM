@@ -9,7 +9,7 @@
   </Loading>
   <SloganTitle></SloganTitle>
   <div class="banner-block">
-    <div class="banner-img">
+    <div class="banner-img d-flex justify-content-center">
       <img src="../assets/img/bKJg50Z.jpg" alt="" />
     </div>
     <!-- product title -->
@@ -87,8 +87,8 @@ export default {
       this.$router.push({ path: '/products', query: { category: selectedCategory } })
     },
     scrollTop() {
-      window.scrollTo(0, 0);
-    },
+      window.scrollTo(0, 0)
+    }
   },
   mounted() {
     this.Loading()
@@ -151,13 +151,17 @@ export default {
     padding: 0px !important;
     margin: 0px !important;
   }
+
+  .img-balloon {
+    width: 15%;
+  }
 }
 
 /* 螢幕寬度小於 768px 時的樣式 */
 @media screen and (max-width: 768px) {
   .container {
     width: 100%;
-    padding: 1rem; //要修改 05/07
+    padding: 1rem;
   }
 
   .img-title {
@@ -170,7 +174,13 @@ export default {
 @media screen and (max-width: 1024px) {
   .container {
     max-width: 768px;
-    padding: 2rem; //要修改 05/07
+    padding: 2rem;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .banner-img {
+    background: #000;
   }
 }
 </style>

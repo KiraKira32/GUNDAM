@@ -10,12 +10,12 @@
 
   <main class="main-block main-cart py-3">
     <div class="container container-block shadow-sm p-0 mb-4">
-      <div class="cart-text p-5 mx-5 mt-4">
+      <div class="order-text p-5 mx-5 mt-4">
         <h3 class="mb-4 text-center">訂單填寫</h3>
-        <div class="shopList p-5 d-flex justify-content-center">
-          <v-form ref="form" class="col-md-6" v-slot="{ errors }">
+        <div class="shopList orderList p-5 d-flex justify-content-center">
+          <v-form ref="form" class="col-md-6 formList" v-slot="{ errors }">
             <div class="mb-3">
-              <label for="name" class="form-label">收件人姓名<span class="text-danger">*</span></label>
+              <label for="name" class="form-label text-name ">收件人姓名<span class="text-danger">*</span></label>
               <v-field
                 id="name"
                 name="姓名"
@@ -91,12 +91,12 @@
         <div class="d-flex justify-content-between mt-4">
           <button
             type="button"
-            class="total-btn btn btn-color text-white py-2"
+            class="total-btn form-btn btn btn-color text-white py-2"
             @click="$router.push(`/carts`)"
           >
             返回上頁
           </button>
-          <button type="submit" class="total-btn btn btn-danger py-2" @click="createOrder">
+          <button type="submit" class="total-btn form-btn btn btn-danger py-2" @click="createOrder">
             送出訂單
           </button>
         </div>
@@ -187,3 +187,34 @@ export default {
   },
 }
 </script>
+
+<style >
+
+
+@media screen and (max-width: 992px) {
+  .text-name {
+    margin-top: 5%;
+  }
+  .order-text {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+  }
+  .formList {
+    width: 80% !important;
+  }
+  .form-btn{
+    padding: 10%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .order-text {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+  .orderList{
+    padding: 2% !important;
+  }
+}
+
+</style>

@@ -21,7 +21,7 @@
     <!-- productlist -->
     <div class="productlist">
       <div class="row">
-        <div class="col-3">
+        <div class="col-md-3">
           <!-- search -->
           <div class="input-group flex-nowrap">
             <span class="input-group-text group-color" id="addon-wrapping" @click="filterSearch">
@@ -59,7 +59,7 @@
           </div>
         </div>
         <!-- 產品列表 -->
-        <div class="col-9">
+        <div class="col-md-9">
           <div class="row">
             <div
               v-for="products in filterProducts"
@@ -68,7 +68,7 @@
             >
               <div
                 v-cloak
-                class="card shadow-sm"
+                class="card card-all shadow-sm"
                 style="width: 18rem background-repeat:no-repeat; background-position: center"
               >
                 <img
@@ -237,3 +237,25 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+
+@media screen and (min-width: 1024px) {
+  .breadcrumb {
+    margin-left: 0% !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .card-products-img  {
+    height: 350px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  // .card-products-img  {
+  //   height: 250px;
+  // }
+}
+
+</style>

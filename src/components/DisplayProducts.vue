@@ -141,6 +141,49 @@
   </div>
 </template>
 
+<script>
+import SwiperCore, { Autoplay } from 'swiper/core'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import 'swiper/swiper-bundle.css'
+
+SwiperCore.use([Autoplay])
+
+export default {
+  components: {
+    Swiper,
+    SwiperSlide
+  },
+  data() {
+    return {
+      isLoading: false,
+      hotProducts: [],
+      newProdicts: []
+    }
+  },
+  methods: {
+    getProducts() {
+      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/products/all`
+      this.Loading = true
+      this.$http
+        .get(url)
+        .then((res) => {
+          this.hotProducts = res.data.products.filter((products) => products.price < 500)
+          this.newProdicts = res.data.products.filter(
+            (products) => products.category === '水星的魔女'
+          )
+          this.Loading = false
+        })
+        .catch(() => {
+          console.log('err')
+        })
+    }
+  },
+  mounted() {
+    this.getProducts()
+  }
+}
+</script>
+
 <style lang="scss">
 .card-shadow {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 8px;
@@ -189,46 +232,3 @@
   }
 }
 </style>
-
-<script>
-import SwiperCore, { Autoplay } from 'swiper/core'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import 'swiper/swiper-bundle.css'
-
-SwiperCore.use([Autoplay])
-
-export default {
-  components: {
-    Swiper,
-    SwiperSlide
-  },
-  data() {
-    return {
-      isLoading: false,
-      hotProducts: [],
-      newProdicts: []
-    }
-  },
-  methods: {
-    getProducts() {
-      const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/products/all`
-      this.Loading = true
-      this.$http
-        .get(url)
-        .then((res) => {
-          this.hotProducts = res.data.products.filter((products) => products.price < 500)
-          this.newProdicts = res.data.products.filter(
-            (products) => products.category === '水星的魔女'
-          )
-          this.Loading = false
-        })
-        .catch(() => {
-          console.log('err')
-        })
-    }
-  },
-  mounted() {
-    this.getProducts()
-  }
-}
-</script>

@@ -3,7 +3,7 @@
     <div class="container p-0">
       <!-- breadcrumb -->
       <nav aria-label="breadcrumb breadcrumb-cart">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb mt-3">
           <li class="breadcrumb-item">
             <router-link to="/" class="breadcrumb-link text-decoration-none">首頁</router-link>
           </li>
@@ -11,7 +11,6 @@
         </ol>
       </nav>
     </div>
-
     <div class="container container-block shadow-sm p-0 mb-4">
       <div class="cart-text text-center p-5">
         <div class="fw-bold fs-2">常見問題</div>
@@ -175,7 +174,6 @@
 </template>
 
 <script>
-
 export default {
   methods: {
     scrollTop() {
@@ -187,3 +185,32 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@media screen and (max-width: 768px) {
+  .accordion {
+    padding: 1% !important;
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .breadcrumb {
+    margin-left: 2% ;
+  }
+  .accordion {
+    padding: 1% !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .breadcrumb {
+    margin-left: 2% ;
+  }
+  .accordion {
+    padding: 1% !important;
+  }
+  .main-question{
+    padding-top: 1px !important;
+  }
+}
+</style>

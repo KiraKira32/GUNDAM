@@ -1,5 +1,5 @@
 <template>
-  <div class="container p-0">
+  <div class="container products-banner-container p-0 ">
     <div class="products-banner">
       <swiper
         :spaceBetween="1"
@@ -8,21 +8,19 @@
           delay: 6000,
           disableOnInteraction: false
         }"
-
         :modules="modules"
-
-        class="mySwiper"
+        class="mySwiper-products"
       >
-        <swiper-slide class="d-flex justify-content-center"
+        <swiper-slide class="open-banner d-flex justify-content-center"
           ><img class="shadow-sm" src="../assets/banner/開幕優惠.png" alt=""
         /></swiper-slide>
-        <swiper-slide class="d-flex justify-content-center"
+        <swiper-slide class="freight-banner d-flex justify-content-center"
           ><img class="shadow-sm" src="../assets/banner/限時滿額免運.png" alt=""
         /></swiper-slide>
-        <swiper-slide class="d-flex justify-content-center"
+        <swiper-slide class="publicity-banner d-flex justify-content-center"
           ><img class="shadow-sm" src="../assets/banner/模型宣傳圖.png" alt=""
         /></swiper-slide>
-        <swiper-slide class="d-flex justify-content-center"
+        <swiper-slide class="recruit-banner d-flex justify-content-center"
           ><img class="shadow-sm" src="../assets/banner/recruit.png" alt=""
         /></swiper-slide>
       </swiper>
@@ -48,22 +46,17 @@ import { Pagination } from 'swiper'
 export default {
   components: {
     Swiper,
-    SwiperSlide,
-
+    SwiperSlide
   },
   data() {
     return {
-      modules: [Pagination, EffectFade],
+      modules: [Pagination, EffectFade]
     }
-  },
+  }
 }
-
 </script>
 
 <style>
-.products-banner{
-  background: #282828;
-}
 .swiper-pagination-bullet-active,
 .swiper-pagination-bullet {
   width: 48px;
@@ -83,4 +76,63 @@ export default {
   height: 15px;
 }
 
+.mySwiper-products {
+  width: 100%;
+  height: 450px;
+}
+
+@media screen and (max-width: 1200px) {
+  .mySwiper-products {
+    width: 100%;
+    height: 440px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .mySwiper-products {
+    width: 100%;
+    height: 350px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .mySwiper-products {
+    width: 100%;
+    height: 265px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .mySwiper-products {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .mySwiper-products {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .mySwiper-products {
+    width: 100%;
+    height: 100%;
+  }
+
+  .recruit-banner {
+    content: url('../assets/banner/recruit_480px.png');
+  }
+  .open-banner{
+    content: url('../assets/banner/開幕優惠_480px.png')
+  }
+  .publicity-banner {
+    content: url('../assets/banner/模型宣傳圖_480px.png');
+  }
+  .freight-banner {
+    content: url('../assets/banner/限時滿額免運_480px.png');
+  }
+}
 </style>

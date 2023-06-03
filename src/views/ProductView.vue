@@ -10,9 +10,9 @@
 
   <main class="main-product main-block py-3">
     <div class="container p-0">
-      <nav aria-label="breadcrumb breadcrumb-cart">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
+      <nav aria-label="breadcrumb breadcrumb-product">
+        <ol class="breadcrumb mt-3">
+          <li class="breadcrumb-item breadcrumb-home">
             <router-link to="/" class="breadcrumb-link text-decoration-none">首頁</router-link>
           </li>
           <li class="breadcrumb-item text-decoration-none">
@@ -27,11 +27,11 @@
       </nav>
     </div>
 
-    <div class="container container-block shape-border shadow-sm p-0">
+    <div class="container container-productu shape-border shadow-sm p-0">
       <div class="modal-content">
-        <div class="modal-body">
-          <div class="row p-5">
-            <div class="col-md-6">
+        <div class="modal-body p-5">
+          <div class="row">
+            <div class="col-12 col-md-6 product-swiper">
               <swiper
                 :style="{
                   '--swiper-navigation-color': '#fff',
@@ -41,13 +41,16 @@
                 :navigation="true"
                 :thumbs="{ swiper: thumbsSwiper }"
                 :modules="modules"
-                class="mySwiper2 swiper-style2 mb-3"
+                class="mySwiper2 swiper-style2 mb-3 product-width"
                 style="width: 550px; height: 450px"
               >
                 <swiper-slide>
                   <img class="img-product" :src="product.imageUrl" />
                 </swiper-slide>
-                <swiper-slide v-for="(imageUrl, index) in product.imagesUrl" :key="'image-' + index">
+                <swiper-slide
+                  v-for="(imageUrl, index) in product.imagesUrl"
+                  :key="'image-' + index"
+                >
                   <img class="img-product" :src="imageUrl" />
                 </swiper-slide>
               </swiper>
@@ -58,20 +61,23 @@
                 :freeMode="true"
                 :watchSlidesProgress="true"
                 :modules="modules"
-                class="mySwiper swiper-style"
+                class="mySwiper swiper-style img-product-width"
                 style="width: 550px; height: 130px"
               >
                 <swiper-slide>
-                  <img class="img-product" :src="product.imageUrl" />
+                  <img class="img-product img-fluid" :src="product.imageUrl" />
                 </swiper-slide>
 
-                <swiper-slide v-for="(imageUrl, index) in product.imagesUrl" :key="'image-' + index">
-                  <img class="img-product" :src="imageUrl" />
+                <swiper-slide
+                  v-for="(imageUrl, index) in product.imagesUrl"
+                  :key="'image-' + index"
+                >
+                  <img class="img-product img-fluid" :src="imageUrl" />
                 </swiper-slide>
               </swiper>
             </div>
             <!-- 商品資訊 -->
-            <div class="col-md-6">
+            <div class="col-12 col-md-6 product-content">
               <div class="ps-4">
                 <h4>{{ product.title }}</h4>
                 <div class="text-secondary pb-2">商品編號: {{ product.id }}</div>
@@ -118,7 +124,7 @@
                     </div>
                     <button
                       type="button"
-                      class="btn btn-danger w-50 ms-4"
+                      class="btn btn-danger product-add w-50 ms-4"
                       @click.prevent="addToCart(product.id, qty)"
                     >
                       <i class="bi bi-cart4"></i>
@@ -155,7 +161,7 @@
         </div>
       </div>
     </div>
-    <div class="container container-block p-0">
+    <div class="container container-productu p-0">
       <div class="product-show">
         <div class="fs-4 my-4 pt-4 fw-bold mx-4">你可能有興趣</div>
         <div class="mx-4">
@@ -189,11 +195,19 @@
               class="d-flex justify-content-center mb-5"
               v-for="item in filteredProducts"
               :key="item.id"
-              @click="selectedProductId = item.id; getProductId()"
+              @click="
+                selectedProductId = item.id;
+                getProductId()
+              "
             >
               <div class="card card-shadow" style="width: 16rem">
                 <router-link :to="`/product/${item.id}`">
-                  <img :src="item.imageUrl" class="card-img-top card-img" alt="" @click="scrollTop"/>
+                  <img
+                    :src="item.imageUrl"
+                    class="card-img-top card-img"
+                    alt=""
+                    @click="scrollTop"
+                  />
                 </router-link>
                 <div class="card-body p-0">
                   <h5 class="card-title p-2">{{ item.title }}</h5>
@@ -223,7 +237,6 @@
 </template>
 
 <script>
-
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
 import 'swiper/css'
@@ -237,7 +250,7 @@ import Swal from 'sweetalert2'
 
 // import required modules
 import { FreeMode, Navigation, Thumbs } from 'swiper'
-import { mapActions,mapState } from 'pinia'
+import { mapActions, mapState } from 'pinia'
 import cartStore from '../stores/cart'
 
 export default {
@@ -310,3 +323,80 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.modal-body {
+  background: white;
+}
+
+@media screen and (max-width: 1200px) {
+  .breadcrumb-home {
+    margin-left: 2% !important;
+  }
+  .modal-body {
+    padding: 1% !important;
+    
+  }
+
+}
+@media screen and (max-width: 1080px) {
+  .product-swiper {
+    width: 100%;
+    padding: 0px !important;
+  }
+  .product-content {
+    margin-top: 3%;
+    width: 550px;
+  }
+  .ps-4 {
+    padding-left: 0px !important;
+  }
+  .row {
+    margin-right: 0px;
+    margin-left: 0px;
+    display: flex;
+    justify-content: center;
+  }
+  .modal-body {
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-width {
+    max-width: 100%;
+  }
+  .img-product-width {
+    max-width: 100%;
+  }
+  .modal-body {
+    padding-top: 0px !important;
+    padding-bottom: 30px !important;
+  }
+}
+@media screen and (max-width: 576px) {
+  .img-product {
+    width: 0%;
+  }
+  .product-width {
+    max-width: 100%;
+    // max-height: 100%;
+    width: auto !important;
+    height: auto !important;
+  }
+  .img-product-width {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto !important;
+    height: auto !important;
+  }
+  
+}
+
+@media screen and (max-width: 480px) {
+  .main-product {
+    padding-top: 1% !important; 
+  }
+}
+</style>
