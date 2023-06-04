@@ -30,3 +30,5 @@
 * swiper套件
 * VeeValidate
 * vue-loading
+
+### 課程API:六角學院提供
