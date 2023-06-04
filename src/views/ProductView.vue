@@ -379,7 +379,6 @@ export default {
 
 @media screen and (max-width: 768px) {
   .product-width {
-    padding-top: 50px;
     max-width: 100%;
   }
   .img-product-width {
@@ -405,11 +404,11 @@ export default {
   }
   .product-width {
     max-width: 100%;
-    max-height: 60%;
+    height: 300px !important;
   }
   .img-preview {
     max-width: 100%;
-    max-height: 80%; 
+    height: 90px !important;
   }
   .product-swiper {
     height: 30%;
