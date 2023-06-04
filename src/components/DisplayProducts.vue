@@ -72,7 +72,7 @@
         <div class="coupon">
           <h3 class="text-danger d-flex justify-content-center align-items-center">歡慶開幕</h3>
           <p class="text-secondary">
-            全館商品結帳時，輸入 <span style="color: #dc0000">gundma77</span> 即可享有7折優惠！
+            全館商品結帳時，輸入 <span style="color: #dc0000">gundam77</span> 即可享有7折優惠！
           </p>
         </div>
         <img class="img-balloon m-4" src="../assets/img/balloon.png" alt="" />
