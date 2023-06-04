@@ -192,7 +192,7 @@
             }"
           >
             <swiper-slide
-              class="d-flex justify-content-center mb-5"
+              class="d-flex justify-content-center mb-5 "
               v-for="item in filteredProducts"
               :key="item.id"
               @click="
@@ -200,11 +200,11 @@
                 getProductId()
               "
             >
-              <div class="card card-shadow" style="width: 16rem">
+              <div class="card card-shadow shadow-sm" style="width: 16rem">
                 <router-link :to="`/product/${item.id}`">
                   <img
                     :src="item.imageUrl"
-                    class="card-img-top card-img"
+                    class="card-img-top card-img p-2 shadow-sm"
                     alt=""
                     @click="scrollTop"
                   />
@@ -408,7 +408,7 @@ export default {
   }
   .product-width {
     max-width: 100%;
-    height: 300px !important;
+    height: 350px !important;
   }
   .img-preview {
     
