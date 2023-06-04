@@ -1,19 +1,8 @@
 <template>
   <main class="main-question main-block py-3">
-    <div class="container p-0">
-      <!-- breadcrumb -->
-      <nav aria-label="breadcrumb breadcrumb-cart">
-        <ol class="breadcrumb mt-3">
-          <li class="breadcrumb-item">
-            <router-link to="/" class="breadcrumb-link text-decoration-none">首頁</router-link>
-          </li>
-          <li class="breadcrumb-item active" aria-current="page">常見問題</li>
-        </ol>
-      </nav>
-    </div>
     <div class="container container-block shadow-sm p-0 mb-4">
       <div class="cart-text text-center p-5">
-        <div class="fw-bold fs-2">常見問題</div>
+        <div class="fw-bold mb-4 fs-2">常見問題</div>
         <!-- Accordion -->
         <div class="accordion p-5" id="accordionFlushExample">
           <div class="accordion-item">
@@ -187,10 +176,20 @@ export default {
 </script>
 
 <style lang="scss">
+
+@media screen and (max-width: 1024px){
+  .main-question {
+    margin-top: 0px;
+  }
+  .cart-text {
+    margin-top: 50px !important;
+  }
+}
 @media screen and (max-width: 768px) {
   .accordion {
     padding: 1% !important;
   }
+
 }
 
 @media screen and (min-width: 480px) {
@@ -212,5 +211,9 @@ export default {
   .main-question{
     padding-top: 1px !important;
   }
+  .cart-text {
+    padding-left: 2% !important;
+    padding-right: 2% !important;
+  } 
 }
 </style>

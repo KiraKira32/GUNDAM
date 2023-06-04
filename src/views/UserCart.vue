@@ -8,18 +8,6 @@
     </div>
   </Loading>
   <main class="main-block main-cart py-3">
-    <div class="container p-0">
-      <!-- breadcrumb -->
-      <nav aria-label="breadcrumb breadcrumb-cart">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <router-link to="/" class="breadcrumb-link text-decoration-none">首頁</router-link>
-          </li>
-          <li class="breadcrumb-item active" aria-current="page">購物車</li>
-        </ol>
-      </nav>
-    </div>
-
     <div class="container container-block shadow-sm p-0 mb-4">
       <!-- 購物車 沒有產品 -->
       <div v-if="cartData.carts?.length === 0" class="cart-text text-center p-5">
@@ -31,7 +19,6 @@
           </div>
         </div>
       </div>
-
       <!-- 購物車列表 -->
       <div v-else class="cart-text p-5 mx-5">
         <h3 class="mb-4 text-center">購物車</h3>
@@ -278,11 +265,10 @@ export default {
 
 <style>
 @media (min-width: 1024px) {
-  .breadcrumb {
-    margin-left: 2% ;
-  }
+
 }
 @media screen and (max-width: 991px) {
+
   .carts-img {
     width: 80px;
     height:50px;
@@ -305,7 +291,7 @@ export default {
 }
 @media screen and (max-width: 767px) {
   .cart-text {
-    padding: 1% !important;
+    margin-top: 5% !important;
     padding-bottom: 5% !important;
     padding-top: 5% !important;
   }
@@ -324,8 +310,8 @@ export default {
   }
 }
 @media screen and (max-width: 575px){
-  .breadcrumb {
-    margin-left: 2% ;
+  .cart-text {
+    margin-top: 0px !important;
   }
   .total-btn {
     padding: 10%;

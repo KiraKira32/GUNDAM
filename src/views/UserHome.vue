@@ -13,7 +13,7 @@
       <img src="../assets/img/bKJg50Z.jpg" alt="" />
     </div>
     <!-- product title -->
-    <main class="main-block">
+    <main class="main-block main-home">
       <div class="container container-block shadow-sm px-0">
         <div>
           <img

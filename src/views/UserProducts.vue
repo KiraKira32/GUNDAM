@@ -72,7 +72,7 @@
                 style="width: 18rem background-repeat:no-repeat; background-position: center"
               >
                 <img
-                  class="card-img-top card-products-img"
+                  class="card-img-top card-products-img shadow-sm p-2"
                   :src="products.imageUrl"
                   alt=""
                   @click="productLink(products.id)"

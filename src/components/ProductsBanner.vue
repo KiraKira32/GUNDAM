@@ -91,7 +91,10 @@ export default {
 @media screen and (max-width: 1024px) {
   .mySwiper-products {
     width: 100%;
-    height: 350px;
+    height: 270px;
+  }
+  .products-banner {
+    margin-top: 0px;
   }
 }
 

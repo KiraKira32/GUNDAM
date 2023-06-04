@@ -10,8 +10,8 @@
 
   <main class="main-product main-block py-3">
     <div class="container p-0">
-      <nav aria-label="breadcrumb breadcrumb-product">
-        <ol class="breadcrumb mt-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-product mt-3">
           <li class="breadcrumb-item breadcrumb-home">
             <router-link to="/" class="breadcrumb-link text-decoration-none">首頁</router-link>
           </li>
@@ -65,14 +65,14 @@
                 style="width: 550px; height: 130px"
               >
                 <swiper-slide>
-                  <img class="img-product img-fluid" :src="product.imageUrl" />
+                  <img class="img-product img-preview" :src="product.imageUrl" />
                 </swiper-slide>
 
                 <swiper-slide
                   v-for="(imageUrl, index) in product.imagesUrl"
                   :key="'image-' + index"
                 >
-                  <img class="img-product img-fluid" :src="imageUrl" />
+                  <img class="img-product img-preview" :src="imageUrl" />
                 </swiper-slide>
               </swiper>
             </div>
@@ -330,14 +330,12 @@ export default {
 }
 
 @media screen and (max-width: 1200px) {
-  .breadcrumb-home {
-    margin-left: 2% !important;
-  }
   .modal-body {
     padding: 1% !important;
-    
   }
-
+  .breadcrumb-product {
+    padding-left: 20px;
+  }
 }
 @media screen and (max-width: 1080px) {
   .product-swiper {
@@ -362,9 +360,26 @@ export default {
     padding-bottom: 50px !important;
   }
 }
+@media screen and (max-width: 1024px) {
+  
+  .main-product {
+    margin-top: 0px;
+  }
+  .main-product {
+    margin-top: 5px;
+  }
+  .breadcrumb-product {
+    margin-top: 80px !important;
+    padding-left: 0px;
+  }
+  .modal-body {
+    padding: 0px m !important;
+  }
+}
 
 @media screen and (max-width: 768px) {
   .product-width {
+    padding-top: 50px;
     max-width: 100%;
   }
   .img-product-width {
@@ -374,29 +389,30 @@ export default {
     padding-top: 0px !important;
     padding-bottom: 30px !important;
   }
+  .breadcrumb-product {
+    padding-left: 10px !important;
+  }
 }
 @media screen and (max-width: 576px) {
-  .img-product {
-    width: 0%;
+  .breadcrumb-product {
+    padding-left: 10px;
   }
-  .product-width {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto !important;
-    height: auto !important;
-  }
-  .img-product-width {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto !important;
-    height: auto !important;
-  }
-  
 }
 
 @media screen and (max-width: 480px) {
   .main-product {
-    padding-top: 1% !important; 
+    padding-top: 1% !important;
+  }
+  .product-width {
+    max-width: 100%;
+    max-height: 60%;
+  }
+  .img-preview {
+    max-width: 100%;
+    max-height: 80%; 
+  }
+  .product-swiper {
+    height: 30%;
   }
 }
 </style>

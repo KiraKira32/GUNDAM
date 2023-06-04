@@ -211,6 +211,8 @@ export default {
   .order-text {
     padding-left: 0px !important;
     padding-right: 0px !important;
+    margin-left:  2%!important;
+    margin-right: 2% !important;
   }
   .orderList{
     padding: 2% !important;

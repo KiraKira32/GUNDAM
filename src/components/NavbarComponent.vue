@@ -89,12 +89,12 @@ export default {
 </script>
 
 <style lang="scss">
-// @media screen and (min-width: 1025px) {
-//   .navbar-logo {
-//     width: 50% !important;
-//     margin-left: 0px !important;
-//   }
-// }
+@media screen and (min-width: 1025px) {
+  .navbar-logo {
+    width: 50% !important;
+    margin-left: 0px !important;
+  }
+}
 @media screen and (max-width: 1024px) {
   .navbar-logo {
     // width: 50% !important;

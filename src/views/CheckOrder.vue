@@ -38,16 +38,16 @@
                     style="width: 100px; height: 60px"
                   />
                 </td>
-                <td>{{ item.product.title }}</td>
-                <td width="50">
+                <td class="checkOrder-content">{{ item.product.title }}</td>
+                <td width="60">
                   <div class="input-group input-group-sm">
-                    <div class="input-group">{{ item.qty }} 台</div>
+                    <div class="input-group checkOrder-content">{{ item.qty }} 台</div>
                   </div>
                 </td>
                 <td width="100" class="check-price">
                   NT$ {{ $filters.currency(item.product.price) }}
                 </td>
-                <td class="text-danger align-middle">
+                <td class="text-danger align-middle checkOrder-content">
                   NT${{ $filters.currency(item.product.price * item.qty) }}
                 </td>
               </tr>
@@ -55,7 +55,7 @@
           </table>
           <div v-if="!order.is_paid" class="d-flex justify-content-end align-items-center pb-3 pt-2">
             <div class="text-secondary">小計</div>
-            <div class="text-danger mx-4 fs-4">NT$ {{ $filters.currency(order.total) }}</div>
+            <div class="text-danger mx-4 fs-4 mt-0">NT$ {{ $filters.currency(order.total) }}</div>
           </div>
           <hr v-if="!order.is_paid" class="mx-3" />
           <div class="Customer-Infor">
@@ -190,12 +190,33 @@ export default {
 </script>
 
 <style>
+
+@media screen and (max-width: 1024px) {
+  .main-cart{
+    margin-top: 74px;
+  }
+  .breadcrumb {
+    margin-top: 16px !important;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .cart-text {
+    padding-left: 1% !important;
+    padding-right: 1% !important;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .check-img {
     display: none;
   }
   .check-btn {
     padding: 60px;
+  }
+  .cart-text {
+    margin-left: 3% !important;
+    margin-right: 3% !important;
   }
 }
 @media screen and (max-width: 480px) {
@@ -210,6 +231,9 @@ export default {
   }
   .order-num {
     width: 100px;
+  }
+  .checkOrder-content {
+    font-size: 14px;
   }
 }
 
