@@ -422,4 +422,10 @@ export default {
     font-size: 14px;
   }
 }
+@media screen and (max-width: 375px) {
+  .product-width {
+    max-width: 100%;
+    height: 300px !important;
+  }
+}
 </style>
