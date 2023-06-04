@@ -210,7 +210,7 @@
                   />
                 </router-link>
                 <div class="card-body p-0">
-                  <h5 class="card-title p-2">{{ item.title }}</h5>
+                  <h5 class="card-title p-2" style="font-size: 16px;">{{ item.title }}</h5>
                   <div class="text-end mx-3">
                     <div v-if="item.price === item.origin_price" class="text-danger h5 mb-3">
                       NT${{ item.price }}
@@ -282,11 +282,13 @@ export default {
   methods: {
     getProductId() {
       // 取出單一產品頁面的 ID
+      this.isLoading = true
       const { id } = this.$route.params
       const url = `${import.meta.env.VITE_API}/v2/api/${import.meta.env.VITE_PATH}/product/${id}`
       this.$http
         .get(url)
         .then((res) => {
+          this.isLoading = false
           this.scrollTop()
           this.product = res.data.product
           this.selectedProduct = this.product
@@ -301,7 +303,7 @@ export default {
       this.$http
         .get(url)
         .then((res) => {
-          this.products = res.data.products.filter((products) => products.price < 500) // 興趣篩選
+          this.products = res.data.products.filter((products) => products.price > 500) // 興趣篩選
           this.isLoading = false
         })
         .catch((err) => {
