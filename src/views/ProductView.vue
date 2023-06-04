@@ -20,7 +20,7 @@
               >商品</router-link
             >
           </li>
-          <li class="breadcrumb-item active" aria-current="page">
+          <li class="breadcrumb-item pe-2 active " aria-current="page">
             {{ product.title }}
           </li>
         </ol>
@@ -391,11 +391,15 @@ export default {
   .breadcrumb-product {
     padding-left: 10px !important;
   }
+  .product-swiper {
+    padding-top: 30px !important;
+  }
 }
 @media screen and (max-width: 576px) {
   .breadcrumb-product {
     padding-left: 10px;
   }
+  
 }
 
 @media screen and (max-width: 480px) {
@@ -407,11 +411,15 @@ export default {
     height: 300px !important;
   }
   .img-preview {
+    
     max-width: 100%;
     height: 90px !important;
   }
   .product-swiper {
     height: 30%;
+  }
+  .breadcrumb-product{
+    font-size: 14px;
   }
 }
 </style>
