@@ -115,7 +115,7 @@
         >
           <div class="card card-shadow" style="width: 16rem">
             <router-link :to="`/product/${item.id}`">
-              <img :src="item.imageUrl" class="card-img-top card-img" alt="" />
+              <img :src="item.imageUrl" class="card-img-top card-img shadow-sm p-1" alt="" />
             </router-link>
             <div class="card-body p-0">
               <h5 class="card-title p-3">{{ item.title }}</h5>
