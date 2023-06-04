@@ -262,6 +262,9 @@ export default {
     max-width: 100%;
     height: 100%;
   }
+  .card-all {
+    width: 100% !important;
+  }
 }
 
 </style>

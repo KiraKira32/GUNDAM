@@ -107,8 +107,8 @@ export default {
 
 @media screen and (max-width: 768px) {
   .mySwiper-products {
-    width: 100%;
-    height: 200px;
+    max-width: 100% !important;
+    /* max-height: 100% !important; */
   }
 }
 
