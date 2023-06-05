@@ -35,11 +35,11 @@
                     class="check-img"
                     :src="item.product.imageUrl"
                     alt="item.product.imageUrl"
-                    style="width: 100px; height: 60px"
+                    style="width: 130px;"
                   />
                 </td>
                 <td class="checkOrder-content">{{ item.product.title }}</td>
-                <td width="60">
+                <td width="50">
                   <div class="input-group input-group-sm">
                     <div class="input-group checkOrder-content">{{ item.qty }} 台</div>
                   </div>
@@ -209,6 +209,12 @@ export default {
 
 @media screen and (max-width: 768px) {
   .check-img {
+    width: 80px !important;
+  }
+  .checkOrder-content {
+    font-size: 12px;
+  }
+  .check-price {
     display: none;
   }
   .check-btn {
@@ -220,9 +226,6 @@ export default {
   }
 }
 @media screen and (max-width: 480px) {
-  .check-img {
-    display: none;
-  }
   .check-btn {
     padding: 40px;
   }
@@ -233,7 +236,7 @@ export default {
     width: 100px;
   }
   .checkOrder-content {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 
