@@ -43,7 +43,13 @@
                     style="cursor: pointer"
                   />
                 </td>
-                <td width="440" class="card-text-product px-0">{{ item.product.title }}</td>
+                <td
+                  width="440"
+                  class="card-text-product px-0"
+                  @click="$router.push(`/product/${item.product_id}`)"
+                >
+                  {{ item.product.title }}
+                </td>
                 <td width="90" class="num-box">
                   <div class="input-group input-group-sm">
                     <div class="input-group">
@@ -161,7 +167,6 @@ import { Toast } from 'bootstrap'
 
 import ToastMessages from '@/components/ToastMessages.vue'
 
-
 import { mapActions, mapState } from 'pinia'
 import cartStore from '../stores/cart'
 
@@ -217,7 +222,7 @@ export default {
         this.toastMessage.hide()
       }, duration)
     },
-    ...mapActions(cartStore, ['getCart','deleteProduct', 'deleteCartAll']),
+    ...mapActions(cartStore, ['getCart', 'deleteProduct', 'deleteCartAll']),
     // 優惠卷
     addCoupon() {
       this.isLoading = true
@@ -249,8 +254,8 @@ export default {
         })
     },
     scrollTop() {
-      window.scrollTo(0, 0);
-    },
+      window.scrollTo(0, 0)
+    }
   },
   computed: {
     ...mapState(cartStore, ['cartData'])
@@ -259,19 +264,17 @@ export default {
     this.getCart()
     this.scrollTop()
     this.toastMessage = new Toast('#toastMessage')
-  },
+  }
 }
 </script>
 
 <style>
 @media (min-width: 1024px) {
-
 }
 @media screen and (max-width: 991px) {
-
   .carts-img {
     width: 80px;
-    height:50px;
+    height: 50px;
   }
   .cart-text {
     padding: 1% !important;
@@ -281,7 +284,7 @@ export default {
   .coupon-block {
     padding-left: 60%;
   }
-  .card-text-product{
+  .card-text-product {
     font-size: 14px;
   }
   .cart-text {
@@ -305,37 +308,30 @@ export default {
   .card-text-icon {
     width: 18px;
   }
-  .coupon-block{
+  .coupon-block {
     padding-left: 50%;
   }
 }
-@media screen and (max-width: 575px){
+@media screen and (max-width: 575px) {
   .cart-text {
     margin-top: 0px !important;
   }
   .total-btn {
     padding: 10%;
   }
-  .coupon-block{
+  .coupon-block {
     padding-left: 40%;
   }
 }
 @media screen and (max-width: 480px) {
-  .carts-img {
-    display: none;
-  }
-  .cart-img-block{
-    padding: 0px !important;
-    width: 0px;
-  }
-  .card-text-price{
+  .card-text-price {
     padding: 1px !important;
     width: 60px !important;
   }
   .num-box {
-    width: 70px ;
+    width: 70px;
   }
-  .text-price{
+  .text-price {
     display: none;
   }
   .text-delete {
@@ -347,9 +343,8 @@ export default {
   .shopList {
     padding: 4px !important;
   }
-  .coupon-block{
+  .coupon-block {
     padding-left: 30%;
   }
-
 }
 </style>

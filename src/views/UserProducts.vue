@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container container-products">
     <Loading :active="isLoading" class="vld-overlay">
       <div class="loadingio-spinner-ripple-j9w2wm5soxm">
         <div class="ldio-3c1sqxz2ek1">
@@ -29,7 +29,7 @@
             </span>
             <input
               type="text"
-              class="form-control"
+              class="form-control search-text"
               placeholder="請輸入產品名稱"
               aria-label="Search"
               v-model="search"
@@ -64,7 +64,7 @@
             <div
               v-for="products in filterProducts"
               :key="products.id"
-              class="col-md-6 col-lg-4 mb-4"
+              class="col-md-6 col-lg-4 col-6 mb-4"
             >
               <div
                 v-cloak
@@ -79,7 +79,7 @@
                   style="cursor: pointer"
                 />
                 <div class="card-body">
-                  <span class="badge bg-secondary mb-3" style="font-size: 14px">{{
+                  <span class="badge card-badge bg-secondary mb-3" style="font-size: 14px">{{
                     products.category
                   }}</span>
                   <h5 class="card-title" style="font-size: 16px">{{ products.title }}</h5>
@@ -97,7 +97,7 @@
                   </div>
                   <button
                     type="button"
-                    class="btn btn-danger w-100"
+                    class="btn btn-danger w-100 add-product"
                     @click.prevent="addToCart(products.id)"
                   >
                     加入購物車
@@ -250,10 +250,47 @@ export default {
   }
 }
 
+@media screen and (max-width: 992px) {
+  .search-text{
+    padding-left: 4px;
+    padding-right: 4px;
+    font-size: 14px;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .card-products-img  {
     max-width: 100%;
     height: 100%;
+  }
+  .card-all {
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .card-all {
+    max-width: 100%;
+  }
+  .card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-body {
+    height: 200px; 
+    overflow: hidden;
+  }
+    .card-body {
+    display: flex;
+    flex-direction: column; /* 內容垂直排列 */
+  }
+
+  .add-product {
+    margin-top: auto; /* 將 button 推到容器的底部 */
+  }
+  .card-badge {
+    width: 90px !important;
   }
 }
 
@@ -265,6 +302,7 @@ export default {
   .card-all {
     width: 100% !important;
   }
+
 }
 
 </style>

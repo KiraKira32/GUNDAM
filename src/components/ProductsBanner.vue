@@ -81,20 +81,22 @@ export default {
   height: 450px;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1080px)  {
   .mySwiper-products {
-    width: 100%;
-    height: 440px;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .mySwiper-products {
-    width: 100%;
-    height: 270px;
+    max-width: 100%;
+    height: 400px;
   }
   .products-banner {
-    margin-top: 0px;
+    margin-top: 100px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .mySwiper-products {
+    max-width: 100%;
+    height: 380px;
+  }
+  .products-banner {
+    margin-top: 100px;
   }
 }
 
@@ -107,9 +109,10 @@ export default {
 
 @media screen and (max-width: 768px) {
   .mySwiper-products {
-    max-width: 100% !important;
-    /* max-height: 100% !important; */
+    max-width: 100%;
+    height: 200px;
   }
+  
 }
 
 @media screen and (max-width: 576px) {

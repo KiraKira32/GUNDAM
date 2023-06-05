@@ -7,7 +7,6 @@
       </div>
     </div>
   </Loading>
-
   <main class="main-product main-block py-3">
     <div class="container p-0">
       <nav aria-label="breadcrumb">
@@ -20,7 +19,7 @@
               >商品</router-link
             >
           </li>
-          <li class="breadcrumb-item pe-2 active " aria-current="page">
+          <li class="breadcrumb-item pe-2 active" aria-current="page">
             {{ product.title }}
           </li>
         </ol>
@@ -54,6 +53,7 @@
                   <img class="img-product" :src="imageUrl" />
                 </swiper-slide>
               </swiper>
+              <!-- 預覽圖 -->
               <swiper
                 @swiper="setThumbsSwiper"
                 :spaceBetween="10"
@@ -192,13 +192,10 @@
             }"
           >
             <swiper-slide
-              class="d-flex justify-content-center mb-5 "
+              class="d-flex justify-content-center mb-5"
               v-for="item in filteredProducts"
               :key="item.id"
-              @click="
-                selectedProductId = item.id;
-                getProductId()
-              "
+              @click=";(selectedProductId = item.id), getProductId()"
             >
               <div class="card card-shadow shadow-sm" style="width: 16rem">
                 <router-link :to="`/product/${item.id}`">
@@ -210,7 +207,7 @@
                   />
                 </router-link>
                 <div class="card-body p-0">
-                  <h5 class="card-title p-2" style="font-size: 16px;">{{ item.title }}</h5>
+                  <h5 class="card-title p-2" style="font-size: 16px">{{ item.title }}</h5>
                   <div class="text-end mx-3">
                     <div v-if="item.price === item.origin_price" class="text-danger h5 mb-3">
                       NT${{ item.price }}
@@ -267,7 +264,6 @@ export default {
       imagesUrl: [],
       thumbsSwiper: null,
       modules: [FreeMode, Navigation, Thumbs],
-      // selectedProduct:{},
       selectedProductId: null,
       qty: 1
     }
@@ -291,7 +287,6 @@ export default {
           this.isLoading = false
           this.scrollTop()
           this.product = res.data.product
-          this.selectedProduct = this.product
         })
         .catch((err) => {
           alert(err)
@@ -321,7 +316,6 @@ export default {
   mounted() {
     this.getProductId()
     this.getProductsAll()
-    this.imagesUrl.unshift(this.product.imageUrl)
   }
 }
 </script>
@@ -363,7 +357,6 @@ export default {
   }
 }
 @media screen and (max-width: 1024px) {
-  
   .main-product {
     margin-top: 0px;
   }
@@ -378,7 +371,6 @@ export default {
     padding: 0px m !important;
   }
 }
-
 @media screen and (max-width: 768px) {
   .product-width {
     max-width: 100%;
@@ -401,9 +393,7 @@ export default {
   .breadcrumb-product {
     padding-left: 10px;
   }
-  
 }
-
 @media screen and (max-width: 480px) {
   .main-product {
     padding-top: 1% !important;
@@ -413,14 +403,13 @@ export default {
     height: 350px !important;
   }
   .img-preview {
-    
     max-width: 100%;
     height: 90px !important;
   }
   .product-swiper {
     height: 30%;
   }
-  .breadcrumb-product{
+  .breadcrumb-product {
     font-size: 14px;
   }
 }
