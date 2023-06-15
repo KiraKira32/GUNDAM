@@ -320,9 +320,74 @@ export default {
 }
 </script>
 
+<style scoped>
+
+/* swiper 樣式修改 */
+
+.swiper-slide .img-product {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+
+.mySwiper2 {
+  height: 80%;
+  width: 100%;
+}
+
+.mySwiper {
+  height: 20%;
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+
+.mySwiper .swiper-slide-thumb-active {
+  opacity: 1;
+}
+</style>
+
 <style lang="scss">
 .modal-body {
   background: white;
+}
+.main-product{
+  margin-top: 74px;
+}
+.product-id{
+  font-size: 14px;
+}
+// button 數量樣式
+.custom-left-rounded {
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+.custom-right-rounded  {
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.freight-content {
+  background-color: #f0f0f0;
+}
+
+// Swiper icon顏色
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  color: #e8e8e8;
+}
+
+.card-img {
+  height: 200px;
+  object-fit: cover;
+}
+.card-img,
+.card-img-bottom {
+  border-bottom-right-radius: unset;
+  border-bottom-left-radius: unset;
 }
 
 @media screen and (max-width: 1200px) {

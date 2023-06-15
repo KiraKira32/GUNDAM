@@ -9,10 +9,16 @@
 </template>
 
 <style>
+@keyframes typing {
+  from { width: 0 }
+}
+@keyframes caret {
+  50% { border-color: transparent; }
+}
+
 .title-text-block {
   position: relative;
 }
-
 .banner-title {
   position: absolute;
   font-size: clamp(16px, 3vw, 28px);

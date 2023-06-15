@@ -163,6 +163,7 @@
 </template>
 
 <script>
+
 export default {
   methods: {
     scrollTop() {
@@ -174,6 +175,25 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.main-question {
+  margin-top: 74px;
+}
+.cordion-text-color{
+  color: #383838;
+}
+.accordion-item .accordion-button:not(.collapsed) {
+  background-color: #BF0000;
+  color: #FFF;
+}
+.accordion-button:not(.collapsed):after {
+  background-image: url(../assets/img/chevron-down.svg);
+  color: red;
+  transform: rotate(-180deg);
+}
+
+</style>
 
 <style lang="scss">
 

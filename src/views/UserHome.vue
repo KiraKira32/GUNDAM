@@ -67,7 +67,7 @@ export default {
     }
   },
   methods: {
-    Loading() {
+    loading() {
       if (this.isLoading === true) {
         setTimeout(() => {
           this.isLoading = false
@@ -91,13 +91,58 @@ export default {
     }
   },
   mounted() {
-    this.Loading()
+    this.loading()
     this.scrollTop()
   }
 }
 </script>
 
 <style lang="scss">
+
+.dynamic-text {
+  color: #dc0000;
+  text-shadow: 1px 1px 1px #000000;
+  font-size:clamp(16px,3vw,32px);
+  width: 12em;
+  border-right: .05em solid;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 1s steps(12),caret 1.5s steps(1) infinite;
+}
+.banner-img img{
+    max-width: 100%;
+    height: auto;
+    background-color: #000000;
+}
+.showcase-img {
+  position: relative;
+  .logo-mercury {
+    top: 85%;
+    width: 35%;
+    left: 3%;
+    z-index: 7;
+    position: absolute;
+  }
+  .logp-mars {
+    width: 13%;
+    left: 48%;
+    z-index: 6;
+    position: absolute;
+  }
+}
+.character{
+  width: 48%;
+}
+.img-ornament {
+  width: 50%;
+}
+.img-element {
+  width: 8%;
+}
+.img-balloon {
+  width: 10%;
+}
+
 /* 螢幕寬度小於 480px 時的樣式 */
 @media screen and (max-width: 480px) {
   .img-title {

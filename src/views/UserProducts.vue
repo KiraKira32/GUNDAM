@@ -239,6 +239,38 @@ export default {
 </script>
 
 <style lang="scss">
+.group-color {
+  background: #bf0000;
+}
+.breadcrumb-link{
+  color: #BF0000;
+  &:hover {
+    color: #BF0000;
+  }
+
+}
+.products-banner {
+  margin-top: 100px;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.input-group-text {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.list-group-item.active {
+  z-index: 2;
+  color: #fff;
+  background-color: #bf0000;
+  border-color: #bf0000;
+}
+.card-products-img{
+  height: 200px;
+  object-fit: cover;
+}
 
 @media screen and (min-width: 1024px) {
   .breadcrumb {

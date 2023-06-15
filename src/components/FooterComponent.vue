@@ -34,7 +34,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .footer-color {
   background: #BF0000;
 }
