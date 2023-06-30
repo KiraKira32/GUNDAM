@@ -9,6 +9,18 @@
 </template>
 
 <style>
+
+.dynamic-text {
+  color: #dc0000;
+  text-shadow: 1px 1px 1px #000000;
+  font-size:clamp(16px,3vw,32px);
+  width: 12em;
+  border-right: .05em solid;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 1s steps(12),caret 1.5s steps(1) infinite;
+}
+
 @keyframes typing {
   from { width: 0 }
 }

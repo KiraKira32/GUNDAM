@@ -1,12 +1,4 @@
 <template>
-  <Loading :active="isLoading" class="vld-overlay">
-    <div class="loadingio-spinner-ripple-j9w2wm5soxm">
-      <div class="ldio-3c1sqxz2ek1">
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  </Loading>
   <SloganTitle></SloganTitle>
   <div class="banner-block">
     <div class="banner-img d-flex justify-content-center">
@@ -67,13 +59,6 @@ export default {
     }
   },
   methods: {
-    loading() {
-      if (this.isLoading === true) {
-        setTimeout(() => {
-          this.isLoading = false
-        }, 1000)
-      }
-    },
     toggleNav() {
       this.isNavOpen = !this.isNavOpen
     },
@@ -91,24 +76,12 @@ export default {
     }
   },
   mounted() {
-    this.loading()
     this.scrollTop()
   }
 }
 </script>
 
 <style lang="scss">
-
-.dynamic-text {
-  color: #dc0000;
-  text-shadow: 1px 1px 1px #000000;
-  font-size:clamp(16px,3vw,32px);
-  width: 12em;
-  border-right: .05em solid;
-  overflow: hidden;
-  white-space: nowrap;
-  animation: typing 1s steps(12),caret 1.5s steps(1) infinite;
-}
 .banner-img img{
     max-width: 100%;
     height: auto;

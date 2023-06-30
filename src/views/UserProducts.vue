@@ -1,13 +1,13 @@
 <template>
   <div class="container container-products">
     <Loading :active="isLoading" class="vld-overlay">
-      <div class="loadingio-spinner-ripple-j9w2wm5soxm">
-        <div class="ldio-3c1sqxz2ek1">
-          <div></div>
-          <div></div>
-        </div>
+    <div class="loadingio-spinner-ripple">
+      <div class="ldio-content">
+        <div></div>
+        <div></div>
       </div>
-    </Loading>
+    </div>
+  </Loading>
     <ProductsBanner></ProductsBanner>
     <!-- breadcrumb -->
     <nav aria-label="breadcrumb">
