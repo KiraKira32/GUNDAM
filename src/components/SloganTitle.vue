@@ -24,8 +24,19 @@
 @keyframes typing {
   from { width: 0 }
 }
+
+/* 定義三個不同的關鍵幀 */
+
 @keyframes caret {
-  50% { border-color: transparent; }
+  0% {
+    border-color: #dc0000;
+  }
+  50% {
+    border-color: transparent;
+  }
+  100% {
+    border-color: #dc0000;
+  }
 }
 
 .title-text-block {
