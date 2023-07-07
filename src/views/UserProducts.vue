@@ -24,7 +24,7 @@
         <div class="col-md-3">
           <!-- search -->
           <div class="input-group flex-nowrap">
-            <span class="input-group-text group-color" id="addon-wrapping" @click="filterSearch">
+            <span class="input-group-text group-color" id="addon-wrapping" @click="filterSearch" style="cursor: pointer">
               <i class="fas fa-search" style="color: #fff"></i>
             </span>
             <input
@@ -32,7 +32,8 @@
               class="form-control search-text"
               placeholder="請輸入產品名稱"
               aria-label="Search"
-              v-model="search"
+              v-model.trim="search"
+              id="F_KEYWORD" v-model="form.F_KEYWORD.value"
               @keyup.enter="filterSearch"
             />
           </div>
@@ -43,19 +44,21 @@
               class="list-group-item list-group-item-action"
               :class="{ active: category === '' }"
               @click="setCategory('')"
+              :disabled=" category === '' "
             >
               全部的商品
             </button>
-            <template v-for="(item, index) in categories" :key="`${index}-${item}`">
+            <div v-for="item  in categories" :key="item.id">
               <button
                 type="button"
                 class="list-group-item list-group-item-action"
                 :class="{ active: category === item }"
                 @click="setCategory(item)"
+                :disabled=" category === item"
               >
                 {{ item }}
               </button>
-            </template>
+            </div>
           </div>
         </div>
         <!-- 產品列表 -->
@@ -138,7 +141,6 @@ export default {
       filterProducts: [],
       category: '',
       categories: [], 
-      // cart: {},
       search: ''
     }
   },
@@ -175,8 +177,8 @@ export default {
         this.filterProducts = this.products
       }
     },
-    // 設置分類並觸發
-    setCategory(category = '') {
+    // 設置產品的分類並觸發
+    setCategory(category) {
       this.category = category
       this.getProducts()
     },
@@ -187,11 +189,12 @@ export default {
     ...mapActions(cartStore, ['addToCart', 'getCart']),
     // 關鍵字搜尋 過濾產品
     filterSearch() {
+      
       this.isLoading = true
       setTimeout(() => {
         this.filterProducts = this.productsAll.filter((item) => item.title.match(this.search))
         this.isLoading = false
-        // 更新頁數
+        // 搜尋後更新商品頁數
         if (this.search && this.filterProducts.length < 10) {
           this.page = {
             total_pages: 1,
@@ -225,11 +228,6 @@ export default {
     ...mapState(cartStore, ['cartData'])
   },
   mounted() {
-    // 導向產品類別
-    const selectedCategory = this.$route.query.category
-    if (selectedCategory) {
-      this.category = selectedCategory
-    }
     this.getCart()
     this.scrollTop()
     this.getProducts()
