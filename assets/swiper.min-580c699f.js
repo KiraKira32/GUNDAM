@@ -1,0 +1,1 @@
+import{A as a,D as m}from"./index-5c2e5b3c.js";function r(f,i,n,l){return f.params.createElements&&Object.keys(l).forEach(e=>{if(!n[e]&&n.auto===!0){let t=a(f.el,`.${l[e]}`)[0];t||(t=m("div",l[e]),t.className=l[e],f.el.append(t)),n[e]=t,i[e]=t}}),n}export{r as c};
