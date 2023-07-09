@@ -31,9 +31,7 @@
               type="text"
               class="form-control search-text"
               placeholder="請輸入產品名稱"
-              aria-label="Search"
-              v-model.trim="search"
-              id="F_KEYWORD" v-model="form.F_KEYWORD.value"
+              aria-label="search"      
               @keyup.enter="filterSearch"
             />
           </div>
@@ -189,7 +187,6 @@ export default {
     ...mapActions(cartStore, ['addToCart', 'getCart']),
     // 關鍵字搜尋 過濾產品
     filterSearch() {
-      
       this.isLoading = true
       setTimeout(() => {
         this.filterProducts = this.productsAll.filter((item) => item.title.match(this.search))
