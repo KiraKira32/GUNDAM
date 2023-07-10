@@ -1,13 +1,13 @@
 <template>
   <div class="container container-products">
     <Loading :active="isLoading" class="vld-overlay">
-    <div class="loadingio-spinner-ripple">
-      <div class="ldio-content">
-        <div></div>
-        <div></div>
+      <div class="loadingio-spinner-ripple">
+        <div class="ldio-content">
+          <div></div>
+          <div></div>
+        </div>
       </div>
-    </div>
-  </Loading>
+    </Loading>
     <ProductsBanner></ProductsBanner>
     <!-- breadcrumb -->
     <nav aria-label="breadcrumb">
@@ -24,14 +24,19 @@
         <div class="col-md-3">
           <!-- search -->
           <div class="input-group flex-nowrap">
-            <span class="input-group-text group-color" id="addon-wrapping" @click="filterSearch" style="cursor: pointer">
+            <span
+              class="input-group-text group-color"
+              id="addon-wrapping"
+              @click="filterSearch"
+              style="cursor: pointer"
+            >
               <i class="fas fa-search" style="color: #fff"></i>
             </span>
             <input
-              type="text"
+              type="search"
               class="form-control search-text"
               placeholder="請輸入產品名稱"
-              aria-label="search"      
+              v-model.trim="search"
               @keyup.enter="filterSearch"
             />
           </div>
@@ -42,17 +47,17 @@
               class="list-group-item list-group-item-action"
               :class="{ active: category === '' }"
               @click="setCategory('')"
-              :disabled=" category === '' "
+              :disabled="category === ''"
             >
               全部的商品
             </button>
-            <div v-for="item  in categories" :key="item.id">
+            <div v-for="item in categories" :key="item.id">
               <button
                 type="button"
                 class="list-group-item list-group-item-action"
                 :class="{ active: category === item }"
                 @click="setCategory(item)"
-                :disabled=" category === item"
+                :disabled="category === item"
               >
                 {{ item }}
               </button>
@@ -138,7 +143,7 @@ export default {
       productsAll: [],
       filterProducts: [],
       category: '',
-      categories: [], 
+      categories: [],
       search: ''
     }
   },
@@ -210,16 +215,13 @@ export default {
       }, 1000)
     },
     scrollTop() {
-      window.scrollTo(0, 0);
-    },
+      window.scrollTo(0, 0)
+    }
   },
   watch: {
     category() {
       this.getProducts()
     },
-    search() {
-      !this.search ? this.createCategories() : this.filterSearch()
-    }
   },
   computed: {
     ...mapState(cartStore, ['cartData'])
@@ -237,12 +239,11 @@ export default {
 .group-color {
   background: #bf0000;
 }
-.breadcrumb-link{
-  color: #BF0000;
+.breadcrumb-link {
+  color: #bf0000;
   &:hover {
-    color: #BF0000;
+    color: #bf0000;
   }
-
 }
 .products-banner {
   margin-top: 100px;
@@ -262,7 +263,7 @@ export default {
   background-color: #bf0000;
   border-color: #bf0000;
 }
-.card-products-img{
+.card-products-img {
   height: 200px;
   object-fit: cover;
 }
@@ -278,7 +279,7 @@ export default {
 }
 
 @media screen and (max-width: 992px) {
-  .search-text{
+  .search-text {
     padding-left: 4px;
     padding-right: 4px;
     font-size: 14px;
@@ -286,7 +287,7 @@ export default {
 }
 
 @media screen and (max-width: 767px) {
-  .card-products-img  {
+  .card-products-img {
     max-width: 100%;
     height: 100%;
   }
@@ -305,10 +306,10 @@ export default {
     text-overflow: ellipsis;
   }
   .card-body {
-    height: 200px; 
+    height: 200px;
     overflow: hidden;
   }
-    .card-body {
+  .card-body {
     display: flex;
     flex-direction: column; /* 內容垂直排列 */
   }
@@ -322,14 +323,12 @@ export default {
 }
 
 @media screen and (max-width: 480px) {
-  .card-products-img  {
+  .card-products-img {
     max-width: 100%;
     height: 100%;
   }
   .card-all {
     width: 100% !important;
   }
-
 }
-
 </style>
