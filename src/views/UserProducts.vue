@@ -195,22 +195,22 @@ export default {
       this.isLoading = true
       setTimeout(() => {
         this.filterProducts = this.productsAll.filter((item) => item.title.match(this.search))
+        // 通過過濾所有商品名稱，符合搜尋條件的名稱顯示在頁面上
+
         this.isLoading = false
+
+        const pageData = {
+          total_pages: 1,
+          current_page: 1,
+          has_pre: false,
+          has_next: false
+        }
+
         // 搜尋後更新商品頁數
         if (this.search && this.filterProducts.length < 10) {
-          this.page = {
-            total_pages: 1,
-            current_page: 1,
-            has_pre: false,
-            has_next: false
-          }
+          this.page = pageData
         } else {
-          this.page = {
-            total_pages: 1,
-            current_page: 1,
-            has_pre: false,
-            has_next: false
-          }
+          this.page = pageData
         }
       }, 1000)
     },
@@ -218,15 +218,15 @@ export default {
       window.scrollTo(0, 0)
     }
   },
-  watch: {
-    category() {
-      this.getProducts()
-    },
-  },
   computed: {
     ...mapState(cartStore, ['cartData'])
   },
   mounted() {
+    // 首頁導向產品類別
+    const selectedCategory = this.$route.query.category
+    if (selectedCategory) {
+      this.category = selectedCategory
+    }
     this.getCart()
     this.scrollTop()
     this.getProducts()

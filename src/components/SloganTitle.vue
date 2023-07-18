@@ -3,14 +3,14 @@
     <div class="banner-title fw-bold text-white">
       <span>勝負並不是只靠機體的性能</span>
       <div>不只是靠操縱者的技巧</div>
-      <div class="dynamic-text">結果本身就是唯一的真相！</div>
+      <div class="slogan-text">結果本身就是唯一的真相！</div>
     </div>
   </div>
 </template>
 
 <style>
 
-.dynamic-text {
+.slogan-text {
   color: #dc0000;
   text-shadow: 1px 1px 1px #000000;
   font-size:clamp(16px,3vw,32px);
@@ -20,6 +20,8 @@
   white-space: nowrap;
   animation: typing 1s steps(12),caret 1.5s steps(1) infinite;
 }
+
+/* 動畫起始關鍵幀 */
 
 @keyframes typing {
   from { width: 0 }

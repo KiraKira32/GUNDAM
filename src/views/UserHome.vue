@@ -22,16 +22,14 @@
             class="img-mercury character"
             src="../assets/img/dkqPCm4.webp"
             alt="水星"
-            @click="redirectToCategory"
-            data-category="水星的魔女"
+            @click="redirectToCategory('水星的魔女')"
             style="cursor: pointer"
           />
           <img
             class="img-mars character"
             src="../assets/img/x45RfEt.webp"
             alt="火星"
-            @click="redirectToCategory"
-            data-category="鐵血的孤兒"
+            @click="redirectToCategory('水星的魔女')"
             style="cursor: pointer"
           />
         </div>
@@ -62,14 +60,9 @@ export default {
     toggleNav() {
       this.isNavOpen = !this.isNavOpen
     },
-    // 渲染全部分類 & 觸發產品分類
-    category(item) {
-      this.$router.push({ path: '/products', query: { category: item } })
-    },
     // 導向產品分類類別
-    redirectToCategory(event) {
-      const selectedCategory = event.target.dataset.category
-      this.$router.push({ path: '/products', query: { category: selectedCategory } })
+    redirectToCategory(category) {
+      this.$router.push({ path: '/products', query: { category: category } })
     },
     scrollTop() {
       window.scrollTo(0, 0)
@@ -82,10 +75,10 @@ export default {
 </script>
 
 <style lang="scss">
-.banner-img img{
-    max-width: 100%;
-    height: auto;
-    background-color: #000000;
+.banner-img img {
+  max-width: 100%;
+  height: auto;
+  background-color: #000000;
 }
 .showcase-img {
   position: relative;
@@ -103,7 +96,7 @@ export default {
     position: absolute;
   }
 }
-.character{
+.character {
   width: 48%;
 }
 .img-ornament {
