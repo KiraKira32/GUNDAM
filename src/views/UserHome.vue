@@ -29,7 +29,7 @@
             class="img-mars character"
             src="../assets/img/x45RfEt.webp"
             alt="火星"
-            @click="redirectToCategory('水星的魔女')"
+            @click="redirectToCategory('鐵血的孤兒')"
             style="cursor: pointer"
           />
         </div>
